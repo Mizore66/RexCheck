@@ -1,0 +1,92 @@
+﻿docker-compose : time="202
+6-04-28T03:47:18+08:00" 
+level=warning msg="C:\\Use
+rs\\User\\CoinGecko\\rexch
+eck\\docker-compose.yml: 
+the attribute `version` 
+is obsolete, it will be 
+ignored, please remove it 
+to avoid potential 
+confusion"
+At line:1 char:1
++ docker-compose run web 
+bundle exec rails 
+db:migrate > migrate.log 
+2>& ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (t  
+  ime="2026-04-2...tial   
+  confusion":String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+time="2026-04-28T03:47:18+
+08:00" level=warning 
+msg="Found orphan 
+containers ([rexcheck-web-
+run-f968835d413e rexcheck-
+web-run-07780cafe41f rexch
+eck-web-run-579a78af9ae1 r
+excheck-web-run-8369203c1c
+ba rexcheck-web-run-276424
+bebbf4 rexcheck-web-run-01
+b1cb3b1abf rexcheck-web-ru
+n-98d0c264fa2d rexcheck-we
+b-run-4b7cbc5c8fad rexchec
+k-web-run-b56549cf3f90 rex
+check-web-run-370fe754ff36
+ rexcheck-web-run-641ee890
+512f rexcheck-web-run-5b75
+67c4c6de rexcheck-web-run-
+135242cb69ba rexcheck-web-
+run-4101de18c5a1 rexcheck-
+web-run-ef821cd55f29]) 
+for this project. If you 
+removed or renamed this 
+service in your compose 
+file, you can run this 
+command with the 
+--remove-orphans flag to 
+clean it up."
+ Container rexcheck_redis 
+Running 
+ Container rexcheck_db 
+Running 
+ Container rexcheck_redis 
+Waiting 
+ Container rexcheck_db 
+Waiting 
+ Container rexcheck_db 
+Healthy 
+ Container rexcheck_redis 
+Healthy 
+ Container rexcheck-web-ru
+n-699c510a24ca Creating 
+ Container rexcheck-web-ru
+n-699c510a24ca Created 
+bin/rails aborted!
+failed to execute:
+pg_dump --schema-only 
+--no-privileges 
+--no-owner --file 
+/app/db/structure.sql 
+rexcheck_development
+
+Please check the output 
+above for any errors and 
+make sure that `pg_dump` 
+is installed in your PATH 
+and has proper 
+permissions.
+
+
+Tasks: TOP => 
+db:schema:dump
+(See full trace by 
+running task with --trace)
+

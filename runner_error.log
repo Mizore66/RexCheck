@@ -1,0 +1,2046 @@
+﻿docker-compose : time="202
+6-04-28T03:42:24+08:00" 
+level=warning msg="C:\\Use
+rs\\User\\CoinGecko\\rexch
+eck\\docker-compose.yml: 
+the attribute `version` 
+is obsolete, it will be 
+ignored, please remove it 
+to avoid potential 
+confusion"
+At line:1 char:1
++ docker-compose run web 
+bundle exec rails runner 
+testcases/trigger_job ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (t  
+  ime="2026-04-2...tial   
+  confusion":String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+time="2026-04-28T03:42:24+
+08:00" level=warning 
+msg="Found orphan 
+containers ([rexcheck-web-
+run-98d0c264fa2d rexcheck-
+web-run-4b7cbc5c8fad rexch
+eck-web-run-b56549cf3f90 r
+excheck-web-run-370fe754ff
+36 rexcheck-web-run-641ee8
+90512f rexcheck-web-run-5b
+7567c4c6de rexcheck-web-ru
+n-135242cb69ba rexcheck-we
+b-run-4101de18c5a1 rexchec
+k-web-run-ef821cd55f29]) 
+for this project. If you 
+removed or renamed this 
+service in your compose 
+file, you can run this 
+command with the 
+--remove-orphans flag to 
+clean it up."
+ Container rexcheck_redis 
+Running 
+ Container rexcheck_db 
+Running 
+ Container rexcheck_db 
+Waiting 
+ Container rexcheck_redis 
+Waiting 
+ Container rexcheck_db 
+Healthy 
+ Container rexcheck_redis 
+Healthy 
+ Container rexcheck-web-ru
+n-01b1cb3b1abf Creating 
+ Container rexcheck-web-ru
+n-01b1cb3b1abf Created 
+/usr/local/bundle/gems/act
+iverecord-8.1.3/lib/active
+_record/connection_adapter
+s/postgresql/database_stat
+ements.rb:167:in `exec': A
+ctiveRecord::StatementInva
+lid: PG::UndefinedTable: 
+ERROR:  relation 
+"solid_queue_jobs" does 
+not exist (SolidQueue::Job
+::EnqueueError)
+LINE 10:  WHERE 
+a.attrelid = '"solid_queue
+_jobs"'::regclass
+                          
+   ^
+
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/postgresql/databas
+e_statements.rb:167:in 
+`perform_query'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/database_
+statements.rb:571:in 
+`block (2 levels) in 
+raw_execute'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract_adapter.r
+b:1086:in `block in 
+with_raw_connection'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/concurrenc
+y/null_lock.rb:9:in 
+`synchronize'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract_adapter.r
+b:1055:in 
+`with_raw_connection'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/database_
+statements.rb:570:in 
+`block in raw_execute'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract_adapter.r
+b:1206:in `log'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/database_
+statements.rb:569:in 
+`raw_execute'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/database_
+statements.rb:613:in 
+`internal_execute'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/postgresql/databas
+e_statements.rb:15:in 
+`query'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/postgresql_adapter
+.rb:1058:in 
+`column_definitions'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/schema_st
+atements.rb:110:in 
+`columns'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:34
+5:in `block (2 levels) in 
+columns'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/connectio
+n_pool.rb:457:in 
+`with_connection'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:34
+4:in `block in columns'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:34
+3:in `fetch'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:34
+3:in `columns'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:35
+4:in `block in 
+columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:35
+3:in `fetch'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:35
+3:in `columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:54
+:in `columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:19
+8:in `columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:609:in `load_schema!'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/counter_cach
+e.rb:212:in `load_schema!'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/encryption/e
+ncryptable_record.rb:127:i
+n `load_schema!'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:555:in `block in 
+load_schema'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:552:in `synchronize'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:552:in `load_schema'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:444:in `columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/attributes.r
+b:257:in `block in 
+_default_attributes'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/connectio
+n_pool.rb:463:in 
+`with_connection'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_h
+andling.rb:313:in 
+`with_connection'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/attributes.r
+b:256:in 
+`_default_attributes'
+	from /usr/local/bundle/ge
+ms/activemodel-8.1.3/lib/a
+ctive_model/attribute_regi
+stration.rb:38:in 
+`attribute_types'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/attribute_me
+thods.rb:261:in 
+`_has_attribute?'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/inheritance.
+rb:61:in `new'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/persistence.
+rb:54:in `create!'
+	from /usr/local/bundle/ge
+ms/solid_queue-1.4.0/app/m
+odels/solid_queue/job.rb:4
+3:in 
+`create_from_active_job'
+	from /usr/local/bundle/ge
+ms/solid_queue-1.4.0/app/m
+odels/solid_queue/job.rb:3
+2:in `enqueue'
+	from /usr/local/bundle/ge
+ms/solid_queue-1.4.0/lib/a
+ctive_job/queue_adapters/s
+olid_queue_adapter.rb:23:i
+n `enqueue_at'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueuing.rb:134:i
+n `_raw_enqueue'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueuing.rb:128:i
+n `block in raw_enqueue'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:121:in `block in 
+run_callbacks'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:34:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:33:in `instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:17:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:21:in `block (2 levels) 
+in 
+<module:Instrumentation>'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:130:in `instance_exec'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:130:in `block in 
+run_callbacks'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `block in 
+tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:38:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/broadcast_
+logger.rb:228:in 
+`method_missing'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:39:in 
+`tag_logger'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:28:in 
+`block (2 levels) in 
+<module:Logging>'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:130:in `instance_exec'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:130:in `block in 
+run_callbacks'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:141:in `run_callbacks'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueuing.rb:127:i
+n `raw_enqueue'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueue_after_tran
+saction_commit.rb:34:in 
+`raw_enqueue'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueuing.rb:116:i
+n `enqueue'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/exceptions.rb:161:
+in `block in retry_job'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:34:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:33:in `instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:17:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/exceptions.rb:159:
+in `retry_job'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/exceptions.rb:69:i
+n `block in retry_on'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/rescuable.
+rb:118:in `instance_exec'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/rescuable.
+rb:118:in `block in 
+handler_for_rescue'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/rescuable.
+rb:94:in 
+`rescue_with_handler'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/rescuable.
+rb:167:in 
+`rescue_with_handler'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:53:in
+ `rescue in perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:45:in
+ `perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:26:in `block in 
+perform_now'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:12:in `block 
+in instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:34:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:33:in `instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:10:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:26:in `perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:32:in 
+`block in perform_now'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `block in 
+tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:38:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/broadcast_
+logger.rb:228:in 
+`method_missing'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:39:in 
+`tag_logger'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:32:in 
+`perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution_state.rb
+:7:in `block (2 levels) 
+in perform_now'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/core_ext/t
+ime/zones.rb:65:in 
+`use_zone'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution_state.rb
+:7:in `block in 
+perform_now'
+	from /usr/local/bundle/ge
+ms/i18n-1.14.8/lib/i18n.rb
+:349:in `with_locale'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution_state.rb
+:6:in `perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:23:in
+ `perform_now'
+	from /app/testcases/trigg
+er_job.rb:3:in `block in 
+<main>'
+	from 
+<internal:numeric>:237:in 
+`times'
+	from /app/testcases/trigg
+er_job.rb:2:in `<main>'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:44:in `load'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:44:in `block in 
+perform'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/execution_
+wrapper.rb:91:in `wrap'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:70:in 
+`conditional_executor'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:43:in `perform'
+	from /usr/local/bundle/ge
+ms/thor-1.5.0/lib/thor/com
+mand.rb:28:in `run'
+	from /usr/local/bundle/ge
+ms/thor-1.5.0/lib/thor/inv
+ocation.rb:127:in 
+`invoke_command'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command/base.rb:176:in 
+`invoke_command'
+	from /usr/local/bundle/ge
+ms/thor-1.5.0/lib/thor.rb:
+538:in `dispatch'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command/base.rb:71:in 
+`perform'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command.rb:65:in `block 
+in invoke'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command.rb:143:in 
+`with_argv'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command.rb:63:in 
+`invoke'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands.rb:18:in 
+`<main>'
+	from /usr/local/lib/ruby/
+3.3.0/bundled_gems.rb:69:i
+n `require'
+	from /usr/local/lib/ruby/
+3.3.0/bundled_gems.rb:69:i
+n `block (2 levels) in 
+replace_require'
+	from /usr/local/bundle/ge
+ms/bootsnap-1.23.0/lib/boo
+tsnap/load_path_cache/core
+_ext/kernel_require.rb:33:
+in `require'
+	from bin/rails:4:in 
+`<main>'
+/usr/local/bundle/gems/act
+iverecord-8.1.3/lib/active
+_record/connection_adapter
+s/postgresql/database_stat
+ements.rb:167:in `exec': 
+PG::UndefinedTable: 
+ERROR:  relation 
+"solid_queue_jobs" does 
+not exist (ActiveRecord::S
+tatementInvalid)
+LINE 10:  WHERE 
+a.attrelid = '"solid_queue
+_jobs"'::regclass
+                          
+   ^
+
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/postgresql/databas
+e_statements.rb:167:in 
+`perform_query'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/database_
+statements.rb:571:in 
+`block (2 levels) in 
+raw_execute'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract_adapter.r
+b:1086:in `block in 
+with_raw_connection'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/concurrenc
+y/null_lock.rb:9:in 
+`synchronize'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract_adapter.r
+b:1055:in 
+`with_raw_connection'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/database_
+statements.rb:570:in 
+`block in raw_execute'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract_adapter.r
+b:1206:in `log'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/database_
+statements.rb:569:in 
+`raw_execute'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/database_
+statements.rb:613:in 
+`internal_execute'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/postgresql/databas
+e_statements.rb:15:in 
+`query'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/postgresql_adapter
+.rb:1058:in 
+`column_definitions'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/schema_st
+atements.rb:110:in 
+`columns'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:34
+5:in `block (2 levels) in 
+columns'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/connectio
+n_pool.rb:457:in 
+`with_connection'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:34
+4:in `block in columns'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:34
+3:in `fetch'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:34
+3:in `columns'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:35
+4:in `block in 
+columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:35
+3:in `fetch'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:35
+3:in `columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:54
+:in `columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:19
+8:in `columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:609:in `load_schema!'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/counter_cach
+e.rb:212:in `load_schema!'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/encryption/e
+ncryptable_record.rb:127:i
+n `load_schema!'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:555:in `block in 
+load_schema'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:552:in `synchronize'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:552:in `load_schema'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:444:in `columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/attributes.r
+b:257:in `block in 
+_default_attributes'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/connectio
+n_pool.rb:463:in 
+`with_connection'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_h
+andling.rb:313:in 
+`with_connection'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/attributes.r
+b:256:in 
+`_default_attributes'
+	from /usr/local/bundle/ge
+ms/activemodel-8.1.3/lib/a
+ctive_model/attribute_regi
+stration.rb:38:in 
+`attribute_types'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/attribute_me
+thods.rb:261:in 
+`_has_attribute?'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/inheritance.
+rb:61:in `new'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/persistence.
+rb:54:in `create!'
+	from /usr/local/bundle/ge
+ms/solid_queue-1.4.0/app/m
+odels/solid_queue/job.rb:4
+3:in 
+`create_from_active_job'
+	from /usr/local/bundle/ge
+ms/solid_queue-1.4.0/app/m
+odels/solid_queue/job.rb:3
+2:in `enqueue'
+	from /usr/local/bundle/ge
+ms/solid_queue-1.4.0/lib/a
+ctive_job/queue_adapters/s
+olid_queue_adapter.rb:23:i
+n `enqueue_at'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueuing.rb:134:i
+n `_raw_enqueue'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueuing.rb:128:i
+n `block in raw_enqueue'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:121:in `block in 
+run_callbacks'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:34:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:33:in `instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:17:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:21:in `block (2 levels) 
+in 
+<module:Instrumentation>'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:130:in `instance_exec'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:130:in `block in 
+run_callbacks'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `block in 
+tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:38:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/broadcast_
+logger.rb:228:in 
+`method_missing'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:39:in 
+`tag_logger'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:28:in 
+`block (2 levels) in 
+<module:Logging>'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:130:in `instance_exec'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:130:in `block in 
+run_callbacks'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:141:in `run_callbacks'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueuing.rb:127:i
+n `raw_enqueue'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueue_after_tran
+saction_commit.rb:34:in 
+`raw_enqueue'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueuing.rb:116:i
+n `enqueue'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/exceptions.rb:161:
+in `block in retry_job'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:34:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:33:in `instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:17:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/exceptions.rb:159:
+in `retry_job'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/exceptions.rb:69:i
+n `block in retry_on'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/rescuable.
+rb:118:in `instance_exec'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/rescuable.
+rb:118:in `block in 
+handler_for_rescue'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/rescuable.
+rb:94:in 
+`rescue_with_handler'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/rescuable.
+rb:167:in 
+`rescue_with_handler'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:53:in
+ `rescue in perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:45:in
+ `perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:26:in `block in 
+perform_now'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:12:in `block 
+in instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:34:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:33:in `instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:10:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:26:in `perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:32:in 
+`block in perform_now'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `block in 
+tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:38:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/broadcast_
+logger.rb:228:in 
+`method_missing'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:39:in 
+`tag_logger'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:32:in 
+`perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution_state.rb
+:7:in `block (2 levels) 
+in perform_now'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/core_ext/t
+ime/zones.rb:65:in 
+`use_zone'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution_state.rb
+:7:in `block in 
+perform_now'
+	from /usr/local/bundle/ge
+ms/i18n-1.14.8/lib/i18n.rb
+:349:in `with_locale'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution_state.rb
+:6:in `perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:23:in
+ `perform_now'
+	from /app/testcases/trigg
+er_job.rb:3:in `block in 
+<main>'
+	from 
+<internal:numeric>:237:in 
+`times'
+	from /app/testcases/trigg
+er_job.rb:2:in `<main>'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:44:in `load'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:44:in `block in 
+perform'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/execution_
+wrapper.rb:91:in `wrap'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:70:in 
+`conditional_executor'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:43:in `perform'
+	from /usr/local/bundle/ge
+ms/thor-1.5.0/lib/thor/com
+mand.rb:28:in `run'
+	from /usr/local/bundle/ge
+ms/thor-1.5.0/lib/thor/inv
+ocation.rb:127:in 
+`invoke_command'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command/base.rb:176:in 
+`invoke_command'
+	from /usr/local/bundle/ge
+ms/thor-1.5.0/lib/thor.rb:
+538:in `dispatch'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command/base.rb:71:in 
+`perform'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command.rb:65:in `block 
+in invoke'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command.rb:143:in 
+`with_argv'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command.rb:63:in 
+`invoke'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands.rb:18:in 
+`<main>'
+	from /usr/local/lib/ruby/
+3.3.0/bundled_gems.rb:69:i
+n `require'
+	from /usr/local/lib/ruby/
+3.3.0/bundled_gems.rb:69:i
+n `block (2 levels) in 
+replace_require'
+	from /usr/local/bundle/ge
+ms/bootsnap-1.23.0/lib/boo
+tsnap/load_path_cache/core
+_ext/kernel_require.rb:33:
+in `require'
+	from bin/rails:4:in 
+`<main>'
+/usr/local/bundle/gems/act
+iverecord-8.1.3/lib/active
+_record/connection_adapter
+s/postgresql/database_stat
+ements.rb:167:in `exec': 
+ERROR:  relation 
+"solid_queue_jobs" does 
+not exist 
+(PG::UndefinedTable)
+LINE 10:  WHERE 
+a.attrelid = '"solid_queue
+_jobs"'::regclass
+                          
+   ^
+
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/postgresql/databas
+e_statements.rb:167:in 
+`perform_query'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/database_
+statements.rb:571:in 
+`block (2 levels) in 
+raw_execute'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract_adapter.r
+b:1086:in `block in 
+with_raw_connection'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/concurrenc
+y/null_lock.rb:9:in 
+`synchronize'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract_adapter.r
+b:1055:in 
+`with_raw_connection'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/database_
+statements.rb:570:in 
+`block in raw_execute'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract_adapter.r
+b:1206:in `log'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/database_
+statements.rb:569:in 
+`raw_execute'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/database_
+statements.rb:613:in 
+`internal_execute'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/postgresql/databas
+e_statements.rb:15:in 
+`query'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/postgresql_adapter
+.rb:1058:in 
+`column_definitions'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/schema_st
+atements.rb:110:in 
+`columns'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:34
+5:in `block (2 levels) in 
+columns'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/connectio
+n_pool.rb:457:in 
+`with_connection'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:34
+4:in `block in columns'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:34
+3:in `fetch'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:34
+3:in `columns'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:35
+4:in `block in 
+columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:35
+3:in `fetch'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:35
+3:in `columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:54
+:in `columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/schema_cache.rb:19
+8:in `columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:609:in `load_schema!'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/counter_cach
+e.rb:212:in `load_schema!'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/encryption/e
+ncryptable_record.rb:127:i
+n `load_schema!'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:555:in `block in 
+load_schema'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:552:in `synchronize'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:552:in `load_schema'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/model_schema
+.rb:444:in `columns_hash'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/attributes.r
+b:257:in `block in 
+_default_attributes'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_a
+dapters/abstract/connectio
+n_pool.rb:463:in 
+`with_connection'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/connection_h
+andling.rb:313:in 
+`with_connection'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/attributes.r
+b:256:in 
+`_default_attributes'
+	from /usr/local/bundle/ge
+ms/activemodel-8.1.3/lib/a
+ctive_model/attribute_regi
+stration.rb:38:in 
+`attribute_types'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/attribute_me
+thods.rb:261:in 
+`_has_attribute?'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/inheritance.
+rb:61:in `new'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/persistence.
+rb:54:in `create!'
+	from /usr/local/bundle/ge
+ms/solid_queue-1.4.0/app/m
+odels/solid_queue/job.rb:4
+3:in 
+`create_from_active_job'
+	from /usr/local/bundle/ge
+ms/solid_queue-1.4.0/app/m
+odels/solid_queue/job.rb:3
+2:in `enqueue'
+	from /usr/local/bundle/ge
+ms/solid_queue-1.4.0/lib/a
+ctive_job/queue_adapters/s
+olid_queue_adapter.rb:23:i
+n `enqueue_at'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueuing.rb:134:i
+n `_raw_enqueue'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueuing.rb:128:i
+n `block in raw_enqueue'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:121:in `block in 
+run_callbacks'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:34:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:33:in `instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:17:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:21:in `block (2 levels) 
+in 
+<module:Instrumentation>'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:130:in `instance_exec'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:130:in `block in 
+run_callbacks'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `block in 
+tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:38:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/broadcast_
+logger.rb:228:in 
+`method_missing'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:39:in 
+`tag_logger'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:28:in 
+`block (2 levels) in 
+<module:Logging>'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:130:in `instance_exec'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:130:in `block in 
+run_callbacks'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:141:in `run_callbacks'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueuing.rb:127:i
+n `raw_enqueue'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueue_after_tran
+saction_commit.rb:34:in 
+`raw_enqueue'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/enqueuing.rb:116:i
+n `enqueue'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/exceptions.rb:161:
+in `block in retry_job'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:34:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:33:in `instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:17:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/exceptions.rb:159:
+in `retry_job'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/exceptions.rb:69:i
+n `block in retry_on'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/rescuable.
+rb:118:in `instance_exec'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/rescuable.
+rb:118:in `block in 
+handler_for_rescue'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/rescuable.
+rb:94:in 
+`rescue_with_handler'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/rescuable.
+rb:167:in 
+`rescue_with_handler'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:53:in
+ `rescue in perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:45:in
+ `perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:26:in `block in 
+perform_now'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:12:in `block 
+in instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:34:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:33:in `instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:10:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:26:in `perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:32:in 
+`block in perform_now'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `block in 
+tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:38:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/broadcast_
+logger.rb:228:in 
+`method_missing'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:39:in 
+`tag_logger'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:32:in 
+`perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution_state.rb
+:7:in `block (2 levels) 
+in perform_now'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/core_ext/t
+ime/zones.rb:65:in 
+`use_zone'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution_state.rb
+:7:in `block in 
+perform_now'
+	from /usr/local/bundle/ge
+ms/i18n-1.14.8/lib/i18n.rb
+:349:in `with_locale'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution_state.rb
+:6:in `perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:23:in
+ `perform_now'
+	from /app/testcases/trigg
+er_job.rb:3:in `block in 
+<main>'
+	from 
+<internal:numeric>:237:in 
+`times'
+	from /app/testcases/trigg
+er_job.rb:2:in `<main>'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:44:in `load'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:44:in `block in 
+perform'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/execution_
+wrapper.rb:91:in `wrap'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:70:in 
+`conditional_executor'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:43:in `perform'
+	from /usr/local/bundle/ge
+ms/thor-1.5.0/lib/thor/com
+mand.rb:28:in `run'
+	from /usr/local/bundle/ge
+ms/thor-1.5.0/lib/thor/inv
+ocation.rb:127:in 
+`invoke_command'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command/base.rb:176:in 
+`invoke_command'
+	from /usr/local/bundle/ge
+ms/thor-1.5.0/lib/thor.rb:
+538:in `dispatch'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command/base.rb:71:in 
+`perform'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command.rb:65:in `block 
+in invoke'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command.rb:143:in 
+`with_argv'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command.rb:63:in 
+`invoke'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands.rb:18:in 
+`<main>'
+	from /usr/local/lib/ruby/
+3.3.0/bundled_gems.rb:69:i
+n `require'
+	from /usr/local/lib/ruby/
+3.3.0/bundled_gems.rb:69:i
+n `block (2 levels) in 
+replace_require'
+	from /usr/local/bundle/ge
+ms/bootsnap-1.23.0/lib/boo
+tsnap/load_path_cache/core
+_ext/kernel_require.rb:33:
+in `require'
+	from bin/rails:4:in 
+`<main>'
+/app/app/jobs/pool_ingesti
+on_job.rb:42:in 
+`process_pool': 
+uninitialized constant 
+PoolIngestionJob::App 
+(NameError)
+
+    result = App::Services
+::RiskCalculator.new(
+             ^^^
+Did you mean?  Api
+	from /app/app/jobs/pool_i
+ngestion_job.rb:14:in 
+`block (2 levels) in 
+perform'
+	from 
+<internal:numeric>:237:in 
+`times'
+	from /app/app/jobs/pool_i
+ngestion_job.rb:9:in 
+`block in perform'
+	from /usr/local/bundle/ge
+ms/connection_pool-2.5.5/l
+ib/connection_pool.rb:114:
+in `block (2 levels) in 
+with'
+	from /usr/local/bundle/ge
+ms/connection_pool-2.5.5/l
+ib/connection_pool.rb:113:
+in `handle_interrupt'
+	from /usr/local/bundle/ge
+ms/connection_pool-2.5.5/l
+ib/connection_pool.rb:113:
+in `block in with'
+	from /usr/local/bundle/ge
+ms/connection_pool-2.5.5/l
+ib/connection_pool.rb:110:
+in `handle_interrupt'
+	from /usr/local/bundle/ge
+ms/connection_pool-2.5.5/l
+ib/connection_pool.rb:110:
+in `with'
+	from /app/app/jobs/pool_i
+ngestion_job.rb:7:in 
+`perform'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:68:in
+ `block in _perform_job'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/callbacks.
+rb:101:in `run_callbacks'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:67:in
+ `_perform_job'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:44:in `_perform_job'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:51:in
+ `perform_now'
+STARTING JOB...
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:26:in `block in 
+perform_now'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:12:in `block 
+in instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:34:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `block in 
+instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons/instrumenter.rb:58:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/notificati
+ons.rb:210:in `instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:33:in `instrument'
+	from /usr/local/bundle/ge
+ms/activerecord-8.1.3/lib/
+active_record/railties/job
+_runtime.rb:10:in 
+`instrument'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/instrumentation.rb
+:26:in `perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:32:in 
+`block in perform_now'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `block in 
+tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:38:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/tagged_log
+ging.rb:143:in `tagged'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/broadcast_
+logger.rb:228:in 
+`method_missing'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:39:in 
+`tag_logger'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/logging.rb:32:in 
+`perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution_state.rb
+:7:in `block (2 levels) 
+in perform_now'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/core_ext/t
+ime/zones.rb:65:in 
+`use_zone'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution_state.rb
+:7:in `block in 
+perform_now'
+	from /usr/local/bundle/ge
+ms/i18n-1.14.8/lib/i18n.rb
+:349:in `with_locale'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution_state.rb
+:6:in `perform_now'
+	from /usr/local/bundle/ge
+ms/activejob-8.1.3/lib/act
+ive_job/execution.rb:23:in
+ `perform_now'
+	from /app/testcases/trigg
+er_job.rb:3:in `block in 
+<main>'
+	from 
+<internal:numeric>:237:in 
+`times'
+	from /app/testcases/trigg
+er_job.rb:2:in `<main>'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:44:in `load'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:44:in `block in 
+perform'
+	from /usr/local/bundle/ge
+ms/activesupport-8.1.3/lib
+/active_support/execution_
+wrapper.rb:91:in `wrap'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:70:in 
+`conditional_executor'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands/runner/runner_c
+ommand.rb:43:in `perform'
+	from /usr/local/bundle/ge
+ms/thor-1.5.0/lib/thor/com
+mand.rb:28:in `run'
+	from /usr/local/bundle/ge
+ms/thor-1.5.0/lib/thor/inv
+ocation.rb:127:in 
+`invoke_command'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command/base.rb:176:in 
+`invoke_command'
+	from /usr/local/bundle/ge
+ms/thor-1.5.0/lib/thor.rb:
+538:in `dispatch'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command/base.rb:71:in 
+`perform'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command.rb:65:in `block 
+in invoke'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command.rb:143:in 
+`with_argv'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/command.rb:63:in 
+`invoke'
+	from /usr/local/bundle/ge
+ms/railties-8.1.3/lib/rail
+s/commands.rb:18:in 
+`<main>'
+	from /usr/local/lib/ruby/
+3.3.0/bundled_gems.rb:69:i
+n `require'
+	from /usr/local/lib/ruby/
+3.3.0/bundled_gems.rb:69:i
+n `block (2 levels) in 
+replace_require'
+	from /usr/local/bundle/ge
+ms/bootsnap-1.23.0/lib/boo
+tsnap/load_path_cache/core
+_ext/kernel_require.rb:33:
+in `require'
+	from bin/rails:4:in 
+`<main>'
+

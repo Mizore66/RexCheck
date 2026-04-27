@@ -1,0 +1,13 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0 -- C:\Python314\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\User\CoinGecko\rexcheck
+plugins: anyio-4.12.1, asyncio-1.3.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 3 items
+
+testcases/test_ingestion_worker.py::TestHappyPathIngestion::test_happy_path_ingestion PASSED [ 33%]
+testcases/test_ingestion_worker.py::TestBloomFilterScalability::test_bloom_filter_scalability PASSED [ 66%]
+testcases/test_ingestion_worker.py::TestRateLimitBackoff::test_rate_limit_backoff PASSED [100%]
+
+============================= 3 passed in 14.04s ==============================

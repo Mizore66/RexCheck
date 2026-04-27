@@ -1,0 +1,188 @@
+﻿docker-compose : time=
+"2026-04-28T04:11:51+0
+8:00" level=warning ms
+g="C:\\Users\\User\\Co
+inGecko\\rexcheck\\doc
+ker-compose.yml: the 
+attribute `version` 
+is obsolete, it will 
+be ignored, please 
+remove it to avoid 
+potential confusion"
+At line:1 char:1
++ docker-compose run 
+web bundle exec rails 
+runner 
+testcases/test_risk_c 
+...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (time="2026   
+ -04-2...tial conf    
+usion":String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+time="2026-04-28T04:11
+:51+08:00" 
+level=warning 
+msg="Found orphan 
+containers ([rexcheck-
+web-run-f16152b5cb2f r
+excheck-web-run-82a29b
+b8c437 rexcheck-web-ru
+n-e2027801b810 rexchec
+k-web-run-8cc28e25b533
+ rexcheck-web-run-003a
+b2e80ee4 rexcheck-web-
+run-529f785fa6e9 rexch
+eck-web-run-699c510a24
+ca rexcheck-web-run-f9
+68835d413e rexcheck-we
+b-run-07780cafe41f rex
+check-web-run-579a78af
+9ae1 rexcheck-web-run-
+8369203c1cba rexcheck-
+web-run-276424bebbf4 r
+excheck-web-run-01b1cb
+3b1abf rexcheck-web-ru
+n-98d0c264fa2d rexchec
+k-web-run-4b7cbc5c8fad
+ rexcheck-web-run-b565
+49cf3f90 rexcheck-web-
+run-370fe754ff36 rexch
+eck-web-run-641ee89051
+2f rexcheck-web-run-5b
+7567c4c6de rexcheck-we
+b-run-135242cb69ba rex
+check-web-run-4101de18
+c5a1 rexcheck-web-run-
+ef821cd55f29]) for 
+this project. If you 
+removed or renamed 
+this service in your 
+compose file, you can 
+run this command with 
+the --remove-orphans 
+flag to clean it up."
+ Container 
+rexcheck_redis 
+Running 
+ Container 
+rexcheck_db Running 
+ Container 
+rexcheck_redis 
+Waiting 
+ Container 
+rexcheck_db Waiting 
+ Container 
+rexcheck_db Healthy 
+ Container 
+rexcheck_redis 
+Healthy 
+ Container rexcheck-we
+b-run-2901fd22becc 
+Creating 
+ Container rexcheck-we
+b-run-2901fd22becc 
+Created 
+/app/testcases/test_ri
+sk_calculator.rb:9:in 
+`<main>': 
+uninitialized 
+constant App 
+(NameError)
+
+result = App::Services
+::RiskCalculator.new({
+         ^^^
+Did you mean?  Api
+	from /usr/local/bundl
+e/gems/railties-8.1.3/
+lib/rails/commands/run
+ner/runner_command.rb:
+44:in `load'
+	from /usr/local/bundl
+e/gems/railties-8.1.3/
+lib/rails/commands/run
+ner/runner_command.rb:
+44:in `block in 
+perform'
+	from /usr/local/bundl
+e/gems/activesupport-8
+.1.3/lib/active_suppor
+t/execution_wrapper.rb
+:91:in `wrap'
+	from /usr/local/bundl
+e/gems/railties-8.1.3/
+lib/rails/commands/run
+ner/runner_command.rb:
+70:in 
+`conditional_executor'
+	from /usr/local/bundl
+e/gems/railties-8.1.3/
+lib/rails/commands/run
+ner/runner_command.rb:
+43:in `perform'
+	from /usr/local/bundl
+e/gems/thor-1.5.0/lib/
+thor/command.rb:28:in 
+`run'
+	from /usr/local/bundl
+e/gems/thor-1.5.0/lib/
+thor/invocation.rb:127
+:in `invoke_command'
+	from /usr/local/bundl
+e/gems/railties-8.1.3/
+lib/rails/command/base
+.rb:176:in 
+`invoke_command'
+	from /usr/local/bundl
+e/gems/thor-1.5.0/lib/
+thor.rb:538:in 
+`dispatch'
+	from /usr/local/bundl
+e/gems/railties-8.1.3/
+lib/rails/command/base
+.rb:71:in `perform'
+	from /usr/local/bundl
+e/gems/railties-8.1.3/
+lib/rails/command.rb:6
+5:in `block in invoke'
+	from /usr/local/bundl
+e/gems/railties-8.1.3/
+lib/rails/command.rb:1
+43:in `with_argv'
+	from /usr/local/bundl
+e/gems/railties-8.1.3/
+lib/rails/command.rb:6
+3:in `invoke'
+	from /usr/local/bundl
+e/gems/railties-8.1.3/
+lib/rails/commands.rb:
+18:in `<main>'
+	from /usr/local/lib/r
+uby/3.3.0/bundled_gems
+.rb:69:in `require'
+	from /usr/local/lib/r
+uby/3.3.0/bundled_gems
+.rb:69:in `block (2 
+levels) in 
+replace_require'
+	from /usr/local/bundl
+e/gems/bootsnap-1.23.0
+/lib/bootsnap/load_pat
+h_cache/core_ext/kerne
+l_require.rb:33:in 
+`require'
+	from bin/rails:4:in 
+`<main>'
+=== Test 5: RiskCalculator Heuristic Accuracy ===
+
+
