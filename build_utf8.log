@@ -1,0 +1,192 @@
+﻿docker-compose : time=
+"2026-04-28T02:44:54+0
+8:00" level=warning ms
+g="C:\\Users\\User\\Co
+inGecko\\rexcheck\\doc
+ker-compose.yml: the 
+attribute `version` 
+is obsolete, it will 
+be ignored, please 
+remove it to avoid 
+potential confusion"
+At line:1 char:1
++ docker-compose 
+build web > build.log 
+2>&1
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo    
+          : 
+NotSpecifi    ed: 
+(time="2026-04    
+-2...tial confusio    
+n":String) [], Rem    
+oteException
+    + 
+FullyQualifiedEr    
+rorId : NativeComm    
+andError
+ 
+ Image rexcheck-web 
+Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 542B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.31kB done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/ruby:3.3-slim
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 221B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [builder  1/12] FROM docker.io/library/ruby:3.3-slim@sha256:b16a9a098f99c8f2d4fc26c8c0f99cdf02f019520c5a8a40b73e37ba4c3542e2
+#6 resolve docker.io/library/ruby:3.3-slim@sha256:b16a9a098f99c8f2d4fc26c8c0f99cdf02f019520c5a8a40b73e37ba4c3542e2 0.0s done
+#6 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 14.56kB 0.0s done
+#5 DONE 0.0s
+
+#7 [builder  6/12] RUN bundle config set --local deployment true &&     bundle config set --local without 'development test' &&     bundle install --jobs 4 --retry 3 &&     rm -rf /usr/local/bundle/cache/*.gem
+#7 CACHED
+
+#8 [builder  7/12] COPY package.json yarn.lock* ./
+#8 CACHED
+
+#9 [builder  5/12] COPY Gemfile Gemfile.lock ./
+#9 CACHED
+
+#10 [builder  3/12] RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - &&     apt-get install --no-install-recommends -y nodejs &&     npm install -g yarn &&     rm -rf /var/lib/apt/lists/*
+#10 CACHED
+
+#11 [builder  2/12] RUN apt-get update -qq &&     apt-get install --no-install-recommends -y     build-essential     curl     git     libpq-dev     node-gyp     libyaml-dev     pkg-config &&     rm -rf /var/lib/apt/lists/*
+#11 CACHED
+
+#12 [builder  4/12] WORKDIR /app
+#12 CACHED
+
+#13 [builder  8/12] RUN npm install --production=false
+#13 CACHED
+
+#14 [builder  9/12] COPY . .
+#14 DONE 0.1s
+
+#15 [builder 10/12] RUN npm run build &&     npm run build:css
+#15 0.476 
+#15 0.476 > build
+#15 0.476 > esbuild app/javascript/application.js --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets
+#15 0.476 
+#15 0.518 
+#15 0.518   app/assets/builds/application.js      273.3kb
+#15 0.518   app/assets/builds/application.js.map  504.8kb
+#15 0.518 
+#15 0.518 ΓÜí Done in 34ms
+#15 0.682 
+#15 0.682 > build:css
+#15 0.682 > tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify
+#15 0.682 
+#15 1.103 Browserslist: caniuse-lite is outdated. Please run:
+#15 1.103   npx update-browserslist-db@latest
+#15 1.103   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+#15 1.289 
+#15 1.289 Rebuilding...
+#15 1.687 
+#15 1.687 Done in 466ms.
+#15 DONE 1.7s
+
+#16 [builder 11/12] RUN SECRET_KEY_BASE=placeholder_for_precompile     RAILS_ENV=production     bundle exec rails assets:precompile
+#16 3.230 W, [2026-04-27T18:44:59.928631 #7]  WARN -- : Generating image variants require the image_processing gem. Please add `gem "image_processing", "~> 1.2"` to your Gemfile or set `config.active_storage.variant_processor = :disabled`.
+#16 4.269 Specified config file /app/config/tailwind.config.js does not exist.
+#16 4.279 bin/rails aborted!
+#16 4.279 Command failed with exit 9: /app/vendor/bundle/ruby/3.3.0/gems/tailwindcss-ruby-3.4.19-x86_64-linux/exe/x86_64-linux/tailwindcss
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/tailwindcss-rails-3.3.2/lib/tasks/build.rake:7:in `system'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/tailwindcss-rails-3.3.2/lib/tasks/build.rake:7:in `block (2 levels) in <main>'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:281:in `block in execute'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:281:in `each'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:281:in `execute'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:219:in `block in invoke_with_call_chain'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:199:in `synchronize'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:199:in `invoke_with_call_chain'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:243:in `block in invoke_prerequisites'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:241:in `each'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:241:in `invoke_prerequisites'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:218:in `block in invoke_with_call_chain'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:199:in `synchronize'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:199:in `invoke_with_call_chain'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/task.rb:188:in `invoke'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/application.rb:183:in `invoke_task'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/application.rb:139:in `block (2 levels) in top_level'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/application.rb:139:in `each'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/application.rb:139:in `block in top_level'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/application.rb:148:in `run_with_threads'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/application.rb:133:in `top_level'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/commands/rake/rake_command.rb:27:in `block (2 levels) in perform'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/application.rb:209:in `standard_exception_handling'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/commands/rake/rake_command.rb:27:in `block in perform'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/commands/rake/rake_command.rb:44:in `block in with_rake'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/rake-13.4.2/lib/rake/rake_module.rb:59:in `with_application'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/commands/rake/rake_command.rb:41:in `with_rake'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/commands/rake/rake_command.rb:20:in `perform'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/command.rb:150:in `invoke_rake'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/command.rb:67:in `block in invoke'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/command.rb:143:in `with_argv'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/command.rb:63:in `invoke'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/commands.rb:18:in `<main>'
+#16 4.280 /app/vendor/bundle/ruby/3.3.0/gems/bootsnap-1.23.0/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:33:in `require'
+#16 4.280 Tasks: TOP => assets:precompile => tailwindcss:build
+#16 4.280 (See full trace by running task with --trace)
+#16 ERROR: process "/bin/sh -c SECRET_KEY_BASE=placeholder_for_precompile     RAILS_ENV=production     bundle exec rails assets:precompile" did not complete successfully: exit code: 1
+------
+ > [builder 11/12] RUN SECRET_KEY_BASE=placeholder_for_precompile     RAILS_ENV=production     bundle exec rails assets:precompile:
+4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/commands/rake/rake_command.rb:41:in `with_rake'
+4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/commands/rake/rake_command.rb:20:in `perform'
+4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/command.rb:150:in `invoke_rake'
+4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/command.rb:67:in `block in invoke'
+4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/command.rb:143:in `with_argv'
+4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/command.rb:63:in `invoke'
+4.280 /app/vendor/bundle/ruby/3.3.0/gems/railties-8.1.3/lib/rails/commands.rb:18:in `<main>'
+4.280 /app/vendor/bundle/ruby/3.3.0/gems/bootsnap-1.23.0/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:33:in `require'
+4.280 Tasks: TOP => assets:precompile => tailwindcss:build
+4.280 (See full trace by running task with --trace)
+------
+Dockerfile:44
+
+--------------------
+
+  43 |     # 
+Precompile assets
+
+  44 | >>> RUN SECRET_
+KEY_BASE=placeholder_f
+or_precompile \
+
+  45 | >>>     
+RAILS_ENV=production \
+
+  46 | >>>     bundle 
+exec rails 
+assets:precompile
+
+  47 |     
+
+--------------------
+
+failed to solve: 
+process "/bin/sh -c SE
+CRET_KEY_BASE=placehol
+der_for_precompile    
+ RAILS_ENV=production 
+    bundle exec rails 
+assets:precompile" 
+did not complete 
+successfully: exit 
+code: 1
+

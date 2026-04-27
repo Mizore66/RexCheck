@@ -1,0 +1,50 @@
+# Ignore bundled gems
+/vendor/bundle
+
+# Ignore node modules
+/node_modules
+
+# Ignore precompiled assets
+/public/assets
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+# Ignore storage
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+
+# Ignore master key
+/config/master.key
+/config/credentials/*.key
+
+# Ignore temp files
+/tmp/*
+!/tmp/.keep
+
+# Ignore logs
+/log/*
+!/log/.keep
+
+# Ignore pid files
+/tmp/pids/*
+
+# Environment files
+.env
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+worker/.env

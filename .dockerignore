@@ -1,0 +1,15 @@
+.env
+.git
+.gitignore
+.dockerignore
+node_modules/
+tmp/
+log/
+public/assets/
+coverage/
+.bundle
+vendor/bundle/
+vendor/javascript/
+app/assets/builds/
+db/*.sqlite3
+db/*.sqlite3-journal

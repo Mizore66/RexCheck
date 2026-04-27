@@ -1,0 +1,11 @@
+production:
+  pool_ingestion:
+    class: PoolIngestionJob
+    queue: default
+    schedule: every 10 seconds
+
+development:
+  pool_ingestion:
+    class: PoolIngestionJob
+    queue: default
+    schedule: every 10 seconds

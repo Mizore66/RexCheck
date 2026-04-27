@@ -1,0 +1,137 @@
+# ==============================================================================
+# rexcheck Local Development Stack
+# ==============================================================================
+# Usage:
+#   docker-compose up --build        # Start all services
+#   docker-compose up -d db redis    # Start dependencies only
+#   docker-compose run web rails db:create db:migrate  # Setup database
+# ==============================================================================
+
+version: "3.8"
+
+x-common-env: &common-env
+  REDIS_URL: redis://redis:6379/0
+  DATABASE_HOST: db
+  DATABASE_USERNAME: postgres
+  DATABASE_PASSWORD: postgres
+
+services:
+  # ---------------------------------------------------------------------------
+  # PostgreSQL 16
+  # ---------------------------------------------------------------------------
+  db:
+    image: postgres:16-alpine
+    container_name: rexcheck_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rexcheck_development
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Redis
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: rexcheck_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Rails Web Application
+  # ---------------------------------------------------------------------------
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    container_name: rexcheck_web
+    restart: unless-stopped
+    environment:
+      <<: *common-env
+      RAILS_ENV: development
+      SECRET_KEY_BASE: dev_secret_key_base_change_in_production_1234567890abcdef
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+    command: >
+      bash -c "
+        bundle install &&
+        bundle exec rails db:prepare &&
+        bundle exec puma -C config/puma.rb
+      "
+
+  # ---------------------------------------------------------------------------
+  # Solid Queue Worker (Background Jobs)
+  # ---------------------------------------------------------------------------
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    container_name: rexcheck_solid_queue
+    restart: unless-stopped
+    environment:
+      <<: *common-env
+      RAILS_ENV: development
+      SECRET_KEY_BASE: dev_secret_key_base_change_in_production_1234567890abcdef
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+    command: >
+      bash -c "
+        bundle install &&
+        bundle exec rails solid_queue:start
+      "
+
+  # ---------------------------------------------------------------------------
+  # Python Ingestion Worker
+  # ---------------------------------------------------------------------------
+  ingestion:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    container_name: rexcheck_ingestion
+    restart: unless-stopped
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      POLL_INTERVAL: "30"
+      NETWORKS: "eth,solana,base,arbitrum,polygon_pos,bsc,avalanche,optimism"
+    depends_on:
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  redis_data:
+  bundle_cache:
