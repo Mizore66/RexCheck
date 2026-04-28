@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   root "dashboard#index"
 
+  get "analyze", to: "analyze#index"
+
   namespace :api do
     namespace :v1 do
       namespace :mcp do
-        get "pool_status", to: "pool_status#show"
+        get "pool_status",     to: "pool_status#show"
+        get "token_analysis",  to: "token_analysis#show"
       end
     end
   end

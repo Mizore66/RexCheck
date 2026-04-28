@@ -81,7 +81,11 @@ services:
       - bundle_cache:/usr/local/bundle
     command: >
       bash -c "
+        mkdir -p tmp/pids log &&
         bundle install &&
+        npm install &&
+        npm run build &&
+        npm run build:css &&
         bundle exec rails db:prepare &&
         bundle exec puma -C config/puma.rb
       "

@@ -22,13 +22,13 @@
 # Ignore temp files
 /tmp/*
 !/tmp/.keep
+!/tmp/pids/
+/tmp/pids/*
+!/tmp/pids/.keep
 
 # Ignore logs
 /log/*
 !/log/.keep
-
-# Ignore pid files
-/tmp/pids/*
 
 # Environment files
 .env
@@ -49,3 +49,6 @@ __pycache__/
 *.pyo
 .venv/
 worker/.env
+
+# Ignore temp files
+tmp/pids/*
