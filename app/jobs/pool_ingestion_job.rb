@@ -5,16 +5,23 @@ class PoolIngestionJob < ApplicationJob
 
   def perform
     REDIS_POOL.with do |redis|
-      # Process up to 50 raw pool payloads per job run
-      50.times do
+      # Process up to 200 raw pool payloads per job run to keep up with ingestion
+      processed_count = 0
+      200.times do
         raw = redis.lpop(REDIS_QUEUE_KEY)
         break unless raw
 
         payload = JSON.parse(raw, symbolize_names: true)
         process_pool(payload)
+        processed_count += 1
       rescue JSON::ParserError => e
         Rails.logger.error("[PoolIngestionJob] Invalid JSON: #{e.message}")
         next
+      end
+
+      # If we hit the limit, re-enqueue immediately to process the rest
+      if processed_count == 200 && redis.llen(REDIS_QUEUE_KEY) > 0
+        PoolIngestionJob.perform_later
       end
     end
   end
@@ -28,10 +35,17 @@ class PoolIngestionJob < ApplicationJob
 
     return unless pool_address.present? && network_id.present?
 
+    pool_name = attrs[:name] || payload[:pool_name] || "Unknown Pool"
+
     pool = Pool.find_or_create_by!(pool_address: pool_address) do |p|
       p.network_id = network_id
+      p.pool_name = pool_name
       p.base_token_address = dig_token_address(attrs, :base_token)
       p.quote_token_address = dig_token_address(attrs, :quote_token)
+    end
+
+    if pool.pool_name.blank? || pool.pool_name == "Unknown Pool"
+      pool.update!(pool_name: pool_name) if pool_name != "Unknown Pool"
     end
 
     volume_usd = attrs.dig(:volume_usd, :h24).to_f || attrs[:volume_usd].to_f

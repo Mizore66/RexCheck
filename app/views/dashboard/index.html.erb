@@ -45,7 +45,15 @@
                            else "heatmap-danger"
                            end
             %>
-            <div class="heatmap-cell <%= cell_class %>" title="<%= pool.pool_address.truncate(12) %> — Score: <%= sc %>"></div>
+            <div class="heatmap-cell <%= cell_class %> relative">
+              <div class="heatmap-tooltip absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 border border-slate-700 rounded-lg shadow-xl z-50 pointer-events-none">
+                <div class="text-xs font-bold text-white mb-1 truncate"><%= pool.pool_name.presence || "Unknown Pool" %></div>
+                <div class="flex justify-between text-xs font-mono">
+                  <span class="text-slate-500"><%= pool.network_id.upcase %></span>
+                  <span class="<%= cell_class == 'heatmap-safe' ? 'text-emerald-400' : (cell_class == 'heatmap-warning' ? 'text-amber-400' : 'text-rose-400') %> font-bold"><%= sc %></span>
+                </div>
+              </div>
+            </div>
           <% end %>
           <% (60 - [@pools.size, 60].min).times do %>
             <div class="heatmap-cell heatmap-empty"></div>
@@ -66,9 +74,8 @@
   </div>
 
   <!-- Bottom Section: Split Layout -->
-  <div class="dashboard-split">
-
-    <!-- Left: Live Pool Scanning Table (2/3 width) -->
+  <div>
+    <!-- Left: Live Pool Scanning Table (Full width) -->
     <div>
       <div class="glass-card overflow-hidden">
         <div class="p-4 border-b border-glass-light">
@@ -83,7 +90,7 @@
           <table class="w-full">
             <thead>
               <tr class="border-b border-glass-light">
-                <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Pool Address</th>
+                <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Pool</th>
                 <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Network</th>
                 <th class="py-2 px-4 text-right text-slate-600 uppercase tracking-widest label-xxs">Volume (24h)</th>
                 <th class="py-2 px-4 text-right text-slate-600 uppercase tracking-widest label-xxs">Liquidity</th>

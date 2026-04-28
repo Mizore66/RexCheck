@@ -225,6 +225,7 @@ def extract_pool_payload(pool_data: dict, network: str) -> dict:
 
     return {
         "network_id": network,
+        "pool_name": attrs.get("name", "Unknown Pool"),
         "pool_address": attrs.get("address", ""),
         "base_token_address": base_token_address,
         "quote_token_address": quote_token_address,

@@ -183,6 +183,18 @@ body { background: #050505 !important; }
   transition: all 0.2s ease !important;
 }
 
+/* Heatmap Tooltip */
+.heatmap-tooltip {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transition: visibility 0s 0.2s, opacity 0.2s ease-in-out !important;
+}
+.heatmap-cell:hover .heatmap-tooltip {
+  visibility: visible !important;
+  opacity: 1 !important;
+  transition-delay: 0s !important;
+}
+
 /* Main margin offset for sidebar */
 .main-content {
   margin-left: 72px !important;

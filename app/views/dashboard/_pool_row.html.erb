@@ -20,7 +20,10 @@
 
 <tr class="transition-colors duration-150 border-b border-glass-light" id="pool-row-<%= pool.id %>" data-controller="row-flash">
   <td class="py-3 px-4">
-    <span class="font-mono text-xs text-slate-300 truncate-address block"><%= pool.pool_address %></span>
+    <a href="https://www.geckoterminal.com/<%= pool.network_id %>/pools/<%= pool.pool_address %>" target="_blank" rel="noopener noreferrer" class="block hover:opacity-80 transition-opacity">
+      <span class="font-bold text-sm text-slate-200 block truncate" style="max-width: 200px;"><%= pool.pool_name.presence || "Unknown Pool" %></span>
+      <span class="font-mono text-xs text-slate-400 truncate block mt-0.5" style="max-width: 200px;"><%= pool.pool_address %></span>
+    </a>
   </td>
   <td class="py-3 px-4">
     <span class="font-mono text-slate-500 uppercase label-xs"><%= pool.network_id.upcase %></span>
