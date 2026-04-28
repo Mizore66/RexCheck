@@ -99,7 +99,7 @@ demo_pools.each do |data|
   # Calculate time for the pool
   pool_created_at = data[:age_hours].hours.ago
 
-  result = App::Services::RiskCalculator.new(
+  result = RiskCalculator.new(
     volume_usd: data[:volume],
     reserve_in_usd: data[:reserve],
     pool_created_at: pool_created_at

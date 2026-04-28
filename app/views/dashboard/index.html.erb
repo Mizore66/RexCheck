@@ -1,203 +1,120 @@
 <div id="dashboard" data-controller="dashboard">
   <!-- Header -->
-  <div class="mb-8">
+  <div class="mb-6">
     <div class="flex items-center justify-between">
       <div>
-        <h2 class="text-2xl font-bold text-slate-100 tracking-tight">Real-Time Pool Grid</h2>
-        <p class="text-sm text-slate-400 mt-1">Live health scoring across all monitored networks</p>
+        <h2 class="text-2xl font-bold text-white tracking-tight">DexGuard Command Center</h2>
+        <p class="text-sm text-slate-500 mt-1">Real-time threat intelligence across all monitored networks</p>
       </div>
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2 px-4 py-2 bg-slate-900 rounded-lg border border-slate-800">
+      <div class="flex items-center gap-3">
+        <div class="glass-card flex items-center gap-2 px-3 py-1.5" style="border-radius: 12px;">
           <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-          <span class="text-xs font-mono text-slate-400">LIVE</span>
+          <span class="text-emerald-400 font-mono label-xs">SENTINEL ACTIVE</span>
         </div>
-        <button class="px-4 py-2 bg-slate-900 rounded-lg border border-slate-800 text-sm text-slate-300 hover:bg-slate-800 hover:border-slate-700 transition-all duration-200" data-action="click->dashboard#refresh">
-          <svg class="w-4 h-4 inline-block mr-1.5 -mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182" />
-          </svg>
-          Refresh
-        </button>
       </div>
     </div>
   </div>
 
-  <!-- Stats Cards -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-    <!-- Total Pools -->
-    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition-all duration-300">
-      <div class="flex items-center justify-between mb-3">
-        <span class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Pools</span>
-        <div class="w-8 h-8 rounded-lg bg-cyan-900/30 border border-cyan-800/50 flex items-center justify-center">
-          <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-          </svg>
+  <!-- Top Row: Summary Cards (3-col) -->
+  <%= turbo_stream_from "dashboard_stats" %>
+  <%= render partial: "dashboard/stats", locals: { stats: @stats } %>
+
+  <!-- Center Section: Split Layout -->
+  <div class="dashboard-split mb-6">
+
+    <!-- Left: Threat Heatmap (2/3 width) -->
+    <div>
+      <div class="glass-card p-5 h-full">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-slate-500 uppercase tracking-widest label-xs">Real-Time Threat Heatmap</span>
+          <div class="flex items-center gap-3 font-mono text-slate-600 label-xxs">
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-sm dot-green"></span> Safe</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-sm dot-amber"></span> Warning</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-sm dot-red"></span> Danger</span>
+          </div>
+        </div>
+
+        <!-- Heatmap Grid -->
+        <div class="heatmap-grid">
+          <% @pools.first(60).each do |pool| %>
+            <%
+              scan = pool.latest_scan
+              sc = scan&.health_score || 0
+              cell_class = if sc >= 80 then "heatmap-safe"
+                           elsif sc >= 50 then "heatmap-warning"
+                           else "heatmap-danger"
+                           end
+            %>
+            <div class="heatmap-cell <%= cell_class %>" title="<%= pool.pool_address.truncate(12) %> — Score: <%= sc %>"></div>
+          <% end %>
+          <% (60 - [@pools.size, 60].min).times do %>
+            <div class="heatmap-cell heatmap-empty"></div>
+          <% end %>
+        </div>
+
+        <div class="mt-3 flex items-center justify-between font-mono text-slate-600 label-xxs">
+          <span>SOL · ETH · BNB · NEAR · POLYGON</span>
+          <span>Last cycle: <%= Time.current.strftime("%H:%M:%S") %></span>
         </div>
       </div>
-      <p class="text-3xl font-bold font-mono text-slate-100"><%= @stats[:total_pools] %></p>
     </div>
 
-    <!-- Safe -->
-    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-emerald-800/50 transition-all duration-300">
-      <div class="flex items-center justify-between mb-3">
-        <span class="text-xs font-medium text-slate-500 uppercase tracking-wider">Safe (24h)</span>
-        <div class="w-8 h-8 rounded-lg bg-emerald-900/30 border border-emerald-800/50 flex items-center justify-center">
-          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
-      </div>
-      <p class="text-3xl font-bold font-mono text-emerald-400"><%= @stats[:safe_count] %></p>
-    </div>
-
-    <!-- Warning -->
-    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-amber-800/50 transition-all duration-300">
-      <div class="flex items-center justify-between mb-3">
-        <span class="text-xs font-medium text-slate-500 uppercase tracking-wider">Warning (24h)</span>
-        <div class="w-8 h-8 rounded-lg bg-amber-900/30 border border-amber-800/50 flex items-center justify-center">
-          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-          </svg>
-        </div>
-      </div>
-      <p class="text-3xl font-bold font-mono text-amber-400"><%= @stats[:warning_count] %></p>
-    </div>
-
-    <!-- Danger -->
-    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-rose-800/50 transition-all duration-300">
-      <div class="flex items-center justify-between mb-3">
-        <span class="text-xs font-medium text-slate-500 uppercase tracking-wider">Danger (24h)</span>
-        <div class="w-8 h-8 rounded-lg bg-rose-900/30 border border-rose-800/50 flex items-center justify-center">
-          <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-          </svg>
-        </div>
-      </div>
-      <p class="text-3xl font-bold font-mono text-rose-500"><%= @stats[:danger_count] %></p>
+    <!-- Right: Telemetry (1/3 width) -->
+    <div>
+      <%= render partial: "dashboard/telemetry" %>
     </div>
   </div>
 
-  <!-- Pool Grid -->
-  <turbo-frame id="pool_grid">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <% if @pools.any? %>
-        <% @pools.each do |pool| %>
-          <% scan = pool.latest_scan %>
-          <% status = scan&.status || "UNKNOWN" %>
-          <% score = scan&.health_score || 0 %>
-          <% flags = scan&.flags || [] %>
+  <!-- Bottom Section: Split Layout -->
+  <div class="dashboard-split">
 
-          <%
-            status_classes = case status
-            when "SAFE"
-              "border-emerald-800/50 hover:border-emerald-700"
-            when "WARNING"
-              "border-amber-800/50 hover:border-amber-700"
-            when "DANGER"
-              "border-rose-800/50 hover:border-rose-700"
-            else
-              "border-slate-800 hover:border-slate-700"
-            end
+    <!-- Left: Live Pool Scanning Table (2/3 width) -->
+    <div>
+      <div class="glass-card overflow-hidden">
+        <div class="p-4 border-b border-glass-light">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-500 uppercase tracking-widest label-xs">Live Pool Scanning</span>
+            <span class="font-mono text-slate-600 label-xxs"><%= @pools.size %> pools</span>
+          </div>
+        </div>
 
-            score_color = case status
-            when "SAFE" then "text-emerald-400"
-            when "WARNING" then "text-amber-400"
-            when "DANGER" then "text-rose-500"
-            else "text-slate-500"
-            end
-
-            badge_classes = case status
-            when "SAFE" then "bg-emerald-900/30 border-emerald-800 text-emerald-400"
-            when "WARNING" then "bg-amber-900/30 border-amber-800 text-amber-400"
-            when "DANGER" then "bg-rose-900/30 border-rose-800 text-rose-500"
-            else "bg-slate-800 border-slate-700 text-slate-500"
-            end
-          %>
-
-          <div class="bg-slate-900 border <%= status_classes %> rounded-xl p-5 transition-all duration-300 hover:shadow-lg group cursor-pointer" id="pool-card-<%= pool.id %>">
-            <!-- Card Header -->
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 text-[10px] font-bold uppercase rounded border <%= badge_classes %>"><%= status %></span>
-                <span class="text-xs text-slate-500 font-mono"><%= pool.network_id.upcase %></span>
-              </div>
-              <span class="text-4xl font-bold font-mono <%= score_color %> tabular-nums"><%= score %></span>
-            </div>
-
-            <!-- Pool Address -->
-            <div class="mb-4">
-              <p class="text-[11px] text-slate-500 uppercase tracking-wider mb-1">Pool Address</p>
-              <p class="font-mono text-sm text-slate-300 truncate group-hover:text-slate-100 transition-colors"><%= pool.pool_address %></p>
-            </div>
-
-            <!-- Token Pair -->
-            <div class="grid grid-cols-2 gap-3 mb-4">
-              <div>
-                <p class="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Base Token</p>
-                <p class="font-mono text-xs text-slate-400 truncate"><%= pool.base_token_address&.truncate(16) || "—" %></p>
-              </div>
-              <div>
-                <p class="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Quote Token</p>
-                <p class="font-mono text-xs text-slate-400 truncate"><%= pool.quote_token_address&.truncate(16) || "—" %></p>
-              </div>
-            </div>
-
-            <!-- Financials -->
-            <div class="grid grid-cols-2 gap-3 mb-4 pt-3 border-t border-slate-800/50">
-              <div>
-                <p class="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Volume (24h)</p>
-                <p class="font-mono text-sm text-slate-300">$<%= number_with_delimiter(scan&.volume_usd&.round(2) || 0) %></p>
-              </div>
-              <div>
-                <p class="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Liquidity</p>
-                <p class="font-mono text-sm text-slate-300">$<%= number_with_delimiter(scan&.reserve_in_usd&.round(2) || 0) %></p>
-              </div>
-            </div>
-
-            <!-- Flags -->
-            <% if flags.any? %>
-              <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-800/50">
-                <% flags.each do |flag| %>
-                  <%
-                    flag_classes = case flag
-                    when "critical_low_liquidity"
-                      "bg-rose-900/20 text-rose-400 border-rose-800/50"
-                    when "wash_trading_suspected"
-                      "bg-amber-900/20 text-amber-400 border-amber-800/50"
-                    when "unseasoned_pool"
-                      "bg-cyan-900/20 text-cyan-400 border-cyan-800/50"
-                    else
-                      "bg-slate-800/50 text-slate-400 border-slate-700/50"
-                    end
-                  %>
-                  <span class="px-2 py-0.5 text-[10px] font-mono rounded border <%= flag_classes %>"><%= flag %></span>
+        <%= turbo_stream_from "pools_grid" %>
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-glass-light">
+                <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Pool Address</th>
+                <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Network</th>
+                <th class="py-2 px-4 text-right text-slate-600 uppercase tracking-widest label-xxs">Volume (24h)</th>
+                <th class="py-2 px-4 text-right text-slate-600 uppercase tracking-widest label-xxs">Liquidity</th>
+                <th class="py-2 px-4 text-center text-slate-600 uppercase tracking-widest label-xxs">Score</th>
+                <th class="py-2 px-4 text-center text-slate-600 uppercase tracking-widest label-xxs">Status</th>
+              </tr>
+            </thead>
+            <tbody id="pools_container">
+              <% if @pools.any? %>
+                <% @pools.each do |pool| %>
+                  <%= render partial: "dashboard/pool_row", locals: { pool: pool, scan: pool.latest_scan } %>
                 <% end %>
-              </div>
-            <% end %>
-
-            <!-- Scan Time -->
-            <% if scan %>
-              <div class="mt-3 pt-3 border-t border-slate-800/50">
-                <p class="text-[10px] text-slate-600 font-mono">Scanned: <%= time_ago_in_words(scan.scanned_at) %> ago</p>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      <% else %>
-        <!-- Empty State -->
-        <div class="col-span-full flex flex-col items-center justify-center py-20">
-          <div class="w-20 h-20 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center mb-6">
-            <svg class="w-10 h-10 text-slate-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-semibold text-slate-400 mb-2">No Pools Detected Yet</h3>
-          <p class="text-sm text-slate-600 max-w-sm text-center">The ingestion worker is polling GeckoTerminal for new pools. Data will appear here automatically once pools are discovered.</p>
-          <div class="mt-6 flex items-center gap-2 px-4 py-2 bg-slate-900 rounded-lg border border-slate-800">
-            <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-            <span class="text-xs font-mono text-slate-500">Waiting for data…</span>
-          </div>
+              <% else %>
+                <tr>
+                  <td colspan="6" class="py-12 text-center">
+                    <div class="flex flex-col items-center">
+                      <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse mb-3"></div>
+                      <p class="text-slate-600 font-mono label-xs">Waiting for pool data…</p>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
-      <% end %>
+      </div>
     </div>
-  </turbo-frame>
+
+    <!-- Right: Risk Strategy Builder (1/3 width) -->
+    <div>
+      <%= render partial: "dashboard/strategy" %>
+    </div>
+  </div>
 </div>

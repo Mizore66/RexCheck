@@ -1,0 +1,190 @@
+/* DexGuard Premium Glassmorphism Design System */
+/* This file is loaded independently of Tailwind compilation */
+
+/* Base theme */
+body { background: #050505 !important; }
+
+/* Glassmorphism Surface Card */
+.glass-card {
+  background: rgba(19, 26, 28, 0.60) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+}
+
+/* Sidebar Rail */
+.sidebar-rail {
+  background: rgba(19, 26, 28, 0.80) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+  width: 72px !important;
+  transition: width 0.3s ease !important;
+}
+.sidebar-rail:hover { width: 240px !important; }
+.sidebar-rail .nav-label,
+.sidebar-rail .logo-text,
+.sidebar-rail .footer-text { opacity: 0 !important; transition: opacity 0.3s ease !important; white-space: nowrap !important; }
+.sidebar-rail:hover .nav-label,
+.sidebar-rail:hover .logo-text,
+.sidebar-rail:hover .footer-text { opacity: 1 !important; }
+
+/* Nav Items */
+.nav-item-active {
+  background: rgba(139, 92, 246, 0.10) !important;
+  border: 1px solid rgba(139, 92, 246, 0.20) !important;
+  color: #a78bfa !important;
+}
+
+/* Accent Glows */
+.glow-purple:hover { box-shadow: 0 0 15px rgba(139, 92, 246, 0.15) !important; }
+.glow-pink:hover   { box-shadow: 0 0 15px rgba(255, 42, 133, 0.15) !important; }
+.glow-emerald:hover{ box-shadow: 0 0 20px rgba(52, 211, 153, 0.15) !important; }
+.glow-amber:hover  { box-shadow: 0 0 20px rgba(251, 191, 36, 0.15) !important; }
+.glow-rose:hover   { box-shadow: 0 0 20px rgba(244, 63, 94, 0.15) !important; }
+
+/* DexGuard Color Utilities */
+.text-dex-purple { color: #8b5cf6 !important; }
+.text-dex-pink   { color: #ff2a85 !important; }
+.bg-dex-purple-10 { background: rgba(139, 92, 246, 0.10) !important; }
+.bg-dex-pink-10   { background: rgba(255, 42, 133, 0.10) !important; }
+.border-dex-purple { border-color: rgba(139, 92, 246, 0.20) !important; }
+.border-dex-pink   { border-color: rgba(255, 42, 133, 0.20) !important; }
+
+/* Badge variants */
+.badge-safe    { background: rgba(34,197,94,0.1) !important;  color: #34d399 !important; border: 1px solid rgba(34,197,94,0.2) !important; }
+.badge-warning { background: rgba(245,158,11,0.1) !important; color: #fbbf24 !important; border: 1px solid rgba(245,158,11,0.2) !important; }
+.badge-danger  { background: rgba(244,63,94,0.1) !important;  color: #f43f5e !important; border: 1px solid rgba(244,63,94,0.2) !important; }
+.badge-unknown { background: rgba(100,116,139,0.1) !important;color: #64748b !important; border: 1px solid rgba(100,116,139,0.2) !important; }
+
+/* Score colors */
+.score-safe    { color: #34d399 !important; }
+.score-warning { color: #fbbf24 !important; }
+.score-danger  { color: #f43f5e !important; }
+.score-unknown { color: #64748b !important; }
+
+/* Heatmap cells */
+.heatmap-safe    { background: rgba(34,197,94,0.4) !important; }
+.heatmap-safe:hover { background: rgba(34,197,94,0.6) !important; }
+.heatmap-warning { background: rgba(245,158,11,0.4) !important; }
+.heatmap-warning:hover { background: rgba(245,158,11,0.6) !important; }
+.heatmap-danger  { background: rgba(244,63,94,0.4) !important; }
+.heatmap-danger:hover { background: rgba(244,63,94,0.6) !important; }
+.heatmap-empty   { background: rgba(255,255,255,0.03) !important; }
+
+/* Icon containers */
+.icon-purple { background: rgba(139,92,246,0.1) !important; border: 1px solid rgba(139,92,246,0.2) !important; }
+.icon-pink   { background: rgba(255,42,133,0.1) !important;  border: 1px solid rgba(255,42,133,0.2) !important; }
+.icon-rose   { background: rgba(244,63,94,0.1) !important;   border: 1px solid rgba(244,63,94,0.2) !important; }
+
+/* Terminal dots */
+.dot-red    { background: rgba(244,63,94,0.6) !important; }
+.dot-amber  { background: rgba(245,158,11,0.6) !important; }
+.dot-green  { background: rgba(34,197,94,0.6) !important; }
+
+/* Borders */
+.border-glass { border-color: rgba(255,255,255,0.08) !important; }
+.border-glass-light { border-color: rgba(255,255,255,0.05) !important; }
+
+/* Labels */
+.label-xs  { font-size: 10px !important; font-weight: 500 !important; }
+.label-xxs { font-size: 9px !important;  font-weight: 500 !important; }
+
+/* Logo gradient */
+.logo-gradient {
+  background: linear-gradient(135deg, #8b5cf6, #ff2a85) !important;
+  box-shadow: 0 0 15px rgba(139,92,246,0.3) !important;
+}
+
+/* Sentinel card scan line */
+.sentinel-card { position: relative; overflow: hidden; }
+.sentinel-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+  transition: left 0.6s ease;
+}
+.sentinel-card:hover::before { left: 100%; }
+
+/* Tabular numbers */
+.tabular-nums { font-variant-numeric: tabular-nums !important; }
+
+/* Animations */
+@keyframes fadeInUp {
+  0%   { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes rowFlash {
+  0%   { background-color: rgba(139, 92, 246, 0.20); }
+  100% { background-color: transparent; }
+}
+.animate-fade-in-up { animation: fadeInUp 0.5s ease-out !important; }
+.animate-row-flash  { animation: rowFlash 1s ease-out !important; }
+
+/* Address truncation */
+.truncate-address {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Scrollbar theme */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: rgb(30 41 59); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgb(51 65 85); }
+
+/* ========================= */
+/* Responsive Grid Utilities */
+/* ========================= */
+
+/* 3-column stats row */
+.stats-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 1rem !important;
+}
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+/* Split layout: 2/3 + 1/3 */
+.dashboard-split {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 1rem !important;
+}
+@media (min-width: 1024px) {
+  .dashboard-split {
+    grid-template-columns: 2fr 1fr !important;
+  }
+}
+
+/* 12-column heatmap grid */
+.heatmap-grid {
+  display: grid !important;
+  grid-template-columns: repeat(12, 1fr) !important;
+  gap: 4px !important;
+}
+
+/* Heatmap cell (square) */
+.heatmap-cell {
+  aspect-ratio: 1 !important;
+  border-radius: 2px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Main margin offset for sidebar */
+.main-content {
+  margin-left: 72px !important;
+}
+

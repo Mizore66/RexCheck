@@ -3,90 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>rexcheck — Pool Intelligence Sentinel</title>
+  <title>DexGuard — Pool Intelligence Sentinel</title>
   <meta name="description" content="Real-time DeFi pool health scoring and risk analysis powered by GeckoTerminal data.">
 
-  <!-- Google Fonts: Inter + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "dexguard", "data-turbo-track": "reload" %>
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+  <%= action_cable_meta_tag %>
 </head>
-<body class="bg-slate-950 text-slate-200 font-sans antialiased min-h-screen">
+<body class="text-slate-200 font-sans antialiased min-h-screen">
   <div class="flex min-h-screen">
 
-    <!-- Fixed Left Sidebar -->
-    <aside class="w-64 bg-slate-900 border-r border-slate-800 fixed inset-y-0 left-0 z-40 flex flex-col">
+    <!-- Left Sidebar Rail -->
+    <aside class="sidebar-rail fixed inset-y-0 left-0 z-40 flex flex-col overflow-hidden">
       <!-- Logo -->
-      <div class="p-6 border-b border-slate-800">
-        <div class="flex items-center gap-3">
-          <div class="relative">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-              <svg class="w-6 h-6 text-slate-950" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-              </svg>
-            </div>
-            <div class="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full animate-pulse border-2 border-slate-900"></div>
+      <div class="p-4 flex items-center gap-3 h-16 border-b border-glass">
+        <div class="relative flex-shrink-0">
+          <div class="w-10 h-10 rounded-2xl logo-gradient flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
           </div>
-          <div>
-            <h1 class="text-lg font-bold text-slate-100 tracking-tight">rexcheck</h1>
-            <p class="text-xs text-slate-500 font-mono">v1.0.0-sentinel</p>
-          </div>
+          <div class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse border-2" style="border-color: #050505;"></div>
+        </div>
+        <div class="logo-text">
+          <h1 class="text-lg font-bold text-white tracking-tight">DexGuard</h1>
+          <p class="text-slate-500 font-mono label-xs">v2.0.0-sentinel</p>
         </div>
       </div>
 
-      <!-- Navigation -->
-      <nav class="flex-1 p-4 space-y-1">
-        <a href="/" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-slate-800/50 text-emerald-400 border border-slate-700/50 transition-all duration-200">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <!-- Nav -->
+      <nav class="flex-1 p-3 space-y-1">
+        <a href="/" class="flex items-center gap-3 px-3 py-2.5 rounded-xl nav-item-active transition-all duration-200">
+          <svg class="w-5 h-5 flex-shrink-0 text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
           </svg>
-          <span class="text-sm font-medium">Pool Grid</span>
+          <span class="text-sm font-medium nav-label">Dashboard</span>
         </a>
-
-        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/30 transition-all duration-200">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-          </svg>
-          <span class="text-sm font-medium">Analytics</span>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:text-slate-200 transition-all duration-200">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" /></svg>
+          <span class="text-sm font-medium nav-label">Threat Map</span>
         </a>
-
-        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/30 transition-all duration-200">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-          </svg>
-          <span class="text-sm font-medium">Alerts</span>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:text-slate-200 transition-all duration-200">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25z" /></svg>
+          <span class="text-sm font-medium nav-label">Agent Telemetry</span>
         </a>
-
-        <a href="/api/v1/mcp/pool_status?address=example&network=eth" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/30 transition-all duration-200">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-          </svg>
-          <span class="text-sm font-medium">MCP API</span>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:text-slate-200 transition-all duration-200">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" /></svg>
+          <span class="text-sm font-medium nav-label">Strategy Builder</span>
+        </a>
+        <a href="/api/v1/mcp/pool_status?address=example&network=eth" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:text-slate-200 transition-all duration-200">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" /></svg>
+          <span class="text-sm font-medium nav-label">Webhooks / MCP</span>
         </a>
       </nav>
 
-      <!-- Sidebar Footer -->
-      <div class="p-4 border-t border-slate-800">
-        <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700/50">
-          <div class="flex items-center gap-2 mb-2">
-            <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-            <span class="text-xs font-medium text-slate-400">Worker Status</span>
+      <!-- Footer -->
+      <div class="p-3 border-t border-glass">
+        <div class="glass-card p-3">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse flex-shrink-0"></div>
+            <span class="text-emerald-400 font-mono label-xs footer-text">ONLINE — Polling</span>
           </div>
-          <p class="text-xs font-mono text-emerald-400">ONLINE — Polling</p>
         </div>
       </div>
     </aside>
 
-    <!-- Main Content Area -->
-    <main class="ml-64 flex-1 p-8">
+    <!-- Main Content -->
+    <main class="main-content flex-1 p-6 lg:p-8">
       <%= yield %>
     </main>
-
   </div>
 </body>
 </html>

@@ -1,0 +1,126 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0 -- C:\Python314\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\User\CoinGecko\rexcheck
+plugins: anyio-4.12.1, asyncio-1.3.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 3 items
+
+testcases/test_ingestion_worker.py::TestHappyPathIngestion::test_happy_path_ingestion FAILED [ 33%]
+testcases/test_ingestion_worker.py::TestBloomFilterScalability::test_bloom_filter_scalability FAILED [ 66%]
+testcases/test_ingestion_worker.py::TestRateLimitBackoff::test_rate_limit_backoff PASSED [100%]
+
+================================== FAILURES ===================================
+______________ TestHappyPathIngestion.test_happy_path_ingestion _______________
+
+self = <test_ingestion_worker.TestHappyPathIngestion object at 0x000001A61F95D450>
+mock_redis = <MagicMock id='1813005979328'>
+
+    @pytest.mark.asyncio
+    async def test_happy_path_ingestion(self, mock_redis):
+        with aioresponses() as mocked:
+            # Mock GeckoTerminal API returns 1 pool
+            mocked.get(
+                GECKO_API_URL,
+                payload={"data": [SAMPLE_POOL_PAYLOAD]},
+                status=200,
+            )
+            # Mock page 2 returns empty (no more data)
+            mocked.get(GECKO_API_URL, payload={"data": []}, status=200)
+    
+            import aiohttp
+            async with aiohttp.ClientSession() as session:
+                new_count = await worker.poll_cycle(session, mock_redis)
+    
+            # Assertions
+>           assert new_count == 1, f"Expected 1 new pool, got {new_count}"
+E           AssertionError: Expected 1 new pool, got 0
+E           assert 0 == 1
+
+testcases\test_ingestion_worker.py:96: AssertionError
+------------------------------ Captured log call ------------------------------
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from eth: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/eth/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from solana: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/solana/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from base: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/base/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from arbitrum: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/arbitrum/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from polygon_pos: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/polygon_pos/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from bsc: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/bsc/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from avalanche: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/avalanche/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from optimism: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/optimism/new_pools?include=base_token%252Cquote_token&page=1
+__________ TestBloomFilterScalability.test_bloom_filter_scalability ___________
+
+self = <test_ingestion_worker.TestBloomFilterScalability object at 0x000001A61F95D950>
+mock_redis = <MagicMock id='1813005984032'>
+
+    @pytest.mark.asyncio
+    async def test_bloom_filter_scalability(self, mock_redis):
+        import aiohttp
+    
+        for i in range(5):
+            with aioresponses() as mocked:
+                mocked.get(
+                    GECKO_API_URL,
+                    payload={"data": [SAMPLE_POOL_PAYLOAD]},
+                    status=200,
+                )
+                mocked.get(GECKO_API_URL, payload={"data": []}, status=200)
+    
+                async with aiohttp.ClientSession() as session:
+                    await worker.poll_cycle(session, mock_redis)
+    
+        # Only the first call should have pushed to Redis
+>       assert mock_redis.rpush.call_count == 1, (
+            f"Expected rpush called exactly once, but was called {mock_redis.rpush.call_count} times. "
+            "Bloom filter should have rejected 4 duplicates."
+        )
+E       AssertionError: Expected rpush called exactly once, but was called 0 times. Bloom filter should have rejected 4 duplicates.
+E       assert 0 == 1
+E        +  where 0 = <MagicMock name='mock.rpush' id='1813005987392'>.call_count
+E        +    where <MagicMock name='mock.rpush' id='1813005987392'> = <MagicMock id='1813005984032'>.rpush
+
+testcases\test_ingestion_worker.py:141: AssertionError
+------------------------------ Captured log call ------------------------------
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from eth: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/eth/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from solana: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/solana/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from base: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/base/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from arbitrum: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/arbitrum/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from polygon_pos: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/polygon_pos/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from bsc: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/bsc/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from avalanche: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/avalanche/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from optimism: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/optimism/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from eth: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/eth/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from solana: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/solana/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from base: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/base/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from arbitrum: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/arbitrum/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from polygon_pos: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/polygon_pos/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from bsc: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/bsc/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from avalanche: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/avalanche/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from optimism: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/optimism/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from eth: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/eth/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from solana: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/solana/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from base: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/base/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from arbitrum: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/arbitrum/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from polygon_pos: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/polygon_pos/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from bsc: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/bsc/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from avalanche: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/avalanche/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from optimism: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/optimism/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from eth: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/eth/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from solana: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/solana/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from base: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/base/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from arbitrum: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/arbitrum/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from polygon_pos: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/polygon_pos/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from bsc: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/bsc/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from avalanche: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/avalanche/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from optimism: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/optimism/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from eth: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/eth/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from solana: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/solana/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from base: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/base/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from arbitrum: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/arbitrum/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from polygon_pos: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/polygon_pos/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from bsc: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/bsc/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from avalanche: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/avalanche/new_pools?include=base_token%252Cquote_token&page=1
+ERROR    rexcheck.worker:ingestion_worker.py:156 HTTP error fetching pools from optimism: Connection refused: GET https://api.geckoterminal.com/api/v2/networks/optimism/new_pools?include=base_token%252Cquote_token&page=1
+=========================== short test summary info ===========================
+FAILED testcases/test_ingestion_worker.py::TestHappyPathIngestion::test_happy_path_ingestion
+FAILED testcases/test_ingestion_worker.py::TestBloomFilterScalability::test_bloom_filter_scalability
+======================== 2 failed, 1 passed in 29.02s =========================

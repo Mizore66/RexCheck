@@ -39,11 +39,11 @@ class PoolIngestionJob < ApplicationJob
 
     pool_created_at = attrs[:pool_created_at] || attrs[:created_at]
 
-    result = App::Services::RiskCalculator.new(
+    result = RiskCalculator.new({
       volume_usd: volume_usd,
       reserve_in_usd: reserve_in_usd,
       pool_created_at: pool_created_at
-    ).call
+    }).call
 
     pool.pool_scans.create!(
       volume_usd: volume_usd,

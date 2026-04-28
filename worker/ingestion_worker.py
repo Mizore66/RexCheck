@@ -52,16 +52,62 @@ REDIS_QUEUE_KEY = "rexcheck:raw_pools"
 MAX_PAGES_PER_NETWORK = 3  # Fetch up to 3 pages per network per cycle
 
 # ---------------------------------------------------------------------------
-# Logging
+# Structured JSON Logging (Datadog-compatible)
 # ---------------------------------------------------------------------------
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s — %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-    stream=sys.stdout,
-)
+
+class JSONFormatter(logging.Formatter):
+    """Structured JSON log formatter for Datadog Log Management."""
+
+    def format(self, record):
+        log_entry = {
+            "timestamp": self.formatTime(record, self.datefmt),
+            "level": record.levelname,
+            "logger": record.name,
+            "message": record.getMessage(),
+            "service": "rexcheck-worker",
+        }
+        # Add extra fields if present (pool_address, network_id, etc.)
+        for key in ("pool_address", "network_id", "cycle", "duration"):
+            if hasattr(record, key):
+                log_entry[key] = getattr(record, key)
+        if record.exc_info:
+            log_entry["exception"] = self.formatException(record.exc_info)
+        return json.dumps(log_entry)
+
+
+# Use JSON format when DD_LOGS_INJECTION is set, otherwise human-readable
+if os.getenv("DD_LOGS_INJECTION", "").lower() in ("true", "1"):
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(JSONFormatter(datefmt="%Y-%m-%dT%H:%M:%S%z"))
+    logging.root.handlers = [handler]
+    logging.root.setLevel(logging.INFO)
+else:
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(name)s — %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        stream=sys.stdout,
+    )
 logger = logging.getLogger("rexcheck.worker")
+
+# ---------------------------------------------------------------------------
+# Observability (Datadog Metrics)
+# ---------------------------------------------------------------------------
+
+try:
+    from observability import (
+        emit_duplicate_dropped,
+        emit_ingested_pool,
+        emit_poll_cycle_duration,
+        emit_queue_depth,
+    )
+except ImportError:
+    # Fallback no-ops if observability module isn't available
+    def emit_duplicate_dropped(*a, **kw): pass
+    def emit_ingested_pool(*a, **kw): pass
+    def emit_poll_cycle_duration(*a, **kw): pass
+    def emit_queue_depth(*a, **kw): pass
 
 # ---------------------------------------------------------------------------
 # Bloom Filter
@@ -227,6 +273,7 @@ async def poll_cycle(
                 # Bloom filter deduplication
                 bloom_key = f"{network}:{pool_address}"
                 if bloom_key in bloom:
+                    emit_duplicate_dropped(network=network, pool_address=pool_address)
                     continue  # Already seen
 
                 bloom.add(bloom_key)
@@ -234,6 +281,7 @@ async def poll_cycle(
                 # Build payload and push to Redis queue
                 payload = extract_pool_payload(pool_data, network)
                 redis_client.rpush(REDIS_QUEUE_KEY, json.dumps(payload))
+                emit_ingested_pool(network=network, pool_address=pool_address)
                 page_new += 1
                 new_count += 1
 
@@ -291,10 +339,15 @@ async def main():
                 elapsed = time.monotonic() - start
                 queue_size = redis_client.llen(REDIS_QUEUE_KEY)
 
+                # Emit Datadog metrics
+                emit_poll_cycle_duration(elapsed, cycle)
+                emit_queue_depth(queue_size)
+
                 logger.info(
                     f"Cycle #{cycle} complete: {new_pools} new pools | "
                     f"Queue depth: {queue_size} | "
-                    f"Duration: {elapsed:.2f}s"
+                    f"Duration: {elapsed:.2f}s",
+                    extra={"cycle": cycle, "duration": elapsed}
                 )
             except Exception as e:
                 logger.error(f"Error in poll cycle #{cycle}: {e}", exc_info=True)
