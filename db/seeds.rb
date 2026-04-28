@@ -187,3 +187,15 @@ demo_pools.each do |data|
 end
 
 puts "\nSeeded #{demo_pools.size} pools with scans. Done!"
+
+# Backfill latest_scan_id for any pools that were seeded before the FK column existed
+puts "Backfilling latest_scan_id..."
+backfilled = 0
+Pool.where(latest_scan_id: nil).find_each do |pool|
+  scan = pool.pool_scans.order(scanned_at: :desc).first
+  if scan
+    pool.update_column(:latest_scan_id, scan.id)
+    backfilled += 1
+  end
+end
+puts "  ✓ Backfilled #{backfilled} pool(s)" if backfilled > 0

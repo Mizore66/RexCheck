@@ -16,7 +16,7 @@ module Api
 
           pools = Pool.by_token_symbol(symbol)
           pools = pools.by_network(network) if network.present?
-          pools = pools.includes(:pool_scans)
+          pools = pools.includes(:latest_scan)
 
           if pools.empty?
             return render json: {

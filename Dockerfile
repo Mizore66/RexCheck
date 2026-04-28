@@ -12,6 +12,7 @@ RUN apt-get update -qq && \
     curl \
     git \
     libpq-dev \
+    postgresql-client \
     node-gyp \
     libyaml-dev \
     pkg-config && \
