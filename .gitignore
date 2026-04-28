@@ -3,6 +3,7 @@
 
 # Ignore node modules
 /node_modules
+*/node_modules
 
 # Ignore precompiled assets
 /public/assets

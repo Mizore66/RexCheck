@@ -1,0 +1,16 @@
+{
+  "name": "rexcheck-mcp",
+  "version": "1.0.0",
+  "description": "RexCheck MCP server — exposes DeFi pool health analysis as tools for AI agents",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
