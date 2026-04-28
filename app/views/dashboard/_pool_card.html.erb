@@ -1,0 +1,100 @@
+<% scan = defined?(scan) ? scan : pool.latest_scan %>
+<% status = scan&.status || "UNKNOWN" %>
+<% score = scan&.health_score || 0 %>
+<% flags = scan&.flags || [] %>
+
+<%
+  status_classes = case status
+  when "SAFE"
+    "border-emerald-800/50 hover:border-emerald-700"
+  when "WARNING"
+    "border-amber-800/50 hover:border-amber-700"
+  when "DANGER"
+    "border-rose-800/50 hover:border-rose-700"
+  else
+    "border-slate-800 hover:border-slate-700"
+  end
+
+  score_color = case status
+  when "SAFE" then "text-emerald-400"
+  when "WARNING" then "text-amber-400"
+  when "DANGER" then "text-rose-500"
+  else "text-slate-500"
+  end
+
+  badge_classes = case status
+  when "SAFE" then "bg-emerald-900/30 border-emerald-800 text-emerald-400"
+  when "WARNING" then "bg-amber-900/30 border-amber-800 text-amber-400"
+  when "DANGER" then "bg-rose-900/30 border-rose-800 text-rose-500"
+  else "bg-slate-800 border-slate-700 text-slate-500"
+  end
+%>
+
+<div class="bg-slate-900 border <%= status_classes %> rounded-xl p-5 transition-all duration-300 hover:shadow-lg group cursor-pointer animate-fade-in-up" id="pool-card-<%= pool.id %>">
+  <!-- Card Header -->
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="px-2 py-0.5 text-[10px] font-bold uppercase rounded border <%= badge_classes %>"><%= status %></span>
+      <span class="text-xs text-slate-500 font-mono"><%= pool.network_id.upcase %></span>
+    </div>
+    <span class="text-4xl font-bold font-mono <%= score_color %> tabular-nums"><%= score %></span>
+  </div>
+
+  <!-- Pool Address -->
+  <div class="mb-4">
+    <p class="text-[11px] text-slate-500 uppercase tracking-wider mb-1">Pool Address</p>
+    <p class="font-mono text-sm text-slate-300 truncate group-hover:text-slate-100 transition-colors"><%= pool.pool_address %></p>
+  </div>
+
+  <!-- Token Pair -->
+  <div class="grid grid-cols-2 gap-3 mb-4">
+    <div>
+      <p class="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Base Token</p>
+      <p class="font-mono text-xs text-slate-400 truncate"><%= pool.base_token_address&.truncate(16) || "—" %></p>
+    </div>
+    <div>
+      <p class="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Quote Token</p>
+      <p class="font-mono text-xs text-slate-400 truncate"><%= pool.quote_token_address&.truncate(16) || "—" %></p>
+    </div>
+  </div>
+
+  <!-- Financials -->
+  <div class="grid grid-cols-2 gap-3 mb-4 pt-3 border-t border-slate-800/50">
+    <div>
+      <p class="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Volume (24h)</p>
+      <p class="font-mono text-sm text-slate-300">$<%= number_with_delimiter(scan&.volume_usd&.round(2) || 0) %></p>
+    </div>
+    <div>
+      <p class="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Liquidity</p>
+      <p class="font-mono text-sm text-slate-300">$<%= number_with_delimiter(scan&.reserve_in_usd&.round(2) || 0) %></p>
+    </div>
+  </div>
+
+  <!-- Flags -->
+  <% if flags.any? %>
+    <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-800/50">
+      <% flags.each do |flag| %>
+        <%
+          flag_classes = case flag
+          when "critical_low_liquidity"
+            "bg-rose-900/20 text-rose-400 border-rose-800/50"
+          when "wash_trading_suspected"
+            "bg-amber-900/20 text-amber-400 border-amber-800/50"
+          when "unseasoned_pool"
+            "bg-cyan-900/20 text-cyan-400 border-cyan-800/50"
+          else
+            "bg-slate-800/50 text-slate-400 border-slate-700/50"
+          end
+        %>
+        <span class="px-2 py-0.5 text-[10px] font-mono rounded border <%= flag_classes %>"><%= flag %></span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Scan Time -->
+  <% if scan %>
+    <div class="mt-3 pt-3 border-t border-slate-800/50">
+      <p class="text-[10px] text-slate-600 font-mono">Scanned: <%= time_ago_in_words(scan.scanned_at) %> ago</p>
+    </div>
+  <% end %>
+</div>

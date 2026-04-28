@@ -15,7 +15,12 @@ module.exports = {
         mono: ['JetBrains Mono', ...defaultTheme.fontFamily.mono],
       },
       colors: {
-        // Extend with the exact sentinel palette
+        dex: {
+          base: '#050505',
+          surface: 'rgba(19, 26, 28, 0.60)',
+          purple: '#8b5cf6',
+          pink: '#ff2a85',
+        },
         slate: {
           950: '#020617',
           900: '#0f172a',
@@ -32,11 +37,21 @@ module.exports = {
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'scan': 'scan 4s linear infinite',
+        'fade-in-up': 'fadeInUp 0.5s ease-out',
+        'row-flash': 'rowFlash 1s ease-out',
       },
       keyframes: {
         scan: {
           '0%': { top: '-2px' },
           '100%': { top: 'calc(100% + 2px)' },
+        },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        rowFlash: {
+          '0%': { backgroundColor: 'rgba(139, 92, 246, 0.20)' },
+          '100%': { backgroundColor: 'transparent' },
         },
       },
     },

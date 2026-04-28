@@ -1,0 +1,40 @@
+<% scan = defined?(scan) ? scan : pool.latest_scan %>
+<% status = scan&.status || "UNKNOWN" %>
+<% score = scan&.health_score || 0 %>
+
+<%
+  score_class = case status
+  when "SAFE" then "score-safe"
+  when "WARNING" then "score-warning"
+  when "DANGER" then "score-danger"
+  else "score-unknown"
+  end
+
+  badge_class = case status
+  when "SAFE" then "badge-safe"
+  when "WARNING" then "badge-warning"
+  when "DANGER" then "badge-danger"
+  else "badge-unknown"
+  end
+%>
+
+<tr class="transition-colors duration-150 border-b border-glass-light" id="pool-row-<%= pool.id %>" data-controller="row-flash">
+  <td class="py-3 px-4">
+    <span class="font-mono text-xs text-slate-300 truncate-address block"><%= pool.pool_address %></span>
+  </td>
+  <td class="py-3 px-4">
+    <span class="font-mono text-slate-500 uppercase label-xs"><%= pool.network_id.upcase %></span>
+  </td>
+  <td class="py-3 px-4 text-right">
+    <span class="font-mono text-xs text-slate-300 tabular-nums">$<%= number_with_delimiter(scan&.volume_usd&.round(0) || 0) %></span>
+  </td>
+  <td class="py-3 px-4 text-right">
+    <span class="font-mono text-xs text-slate-300 tabular-nums">$<%= number_with_delimiter(scan&.reserve_in_usd&.round(0) || 0) %></span>
+  </td>
+  <td class="py-3 px-4 text-center">
+    <span class="font-mono text-sm font-bold tabular-nums <%= score_class %>"><%= score %></span>
+  </td>
+  <td class="py-3 px-4 text-center">
+    <span class="font-bold uppercase rounded-full label-xxs px-2 py-0.5 <%= badge_class %>"><%= status %></span>
+  </td>
+</tr>

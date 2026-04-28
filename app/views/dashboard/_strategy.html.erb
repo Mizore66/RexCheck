@@ -1,0 +1,67 @@
+<!-- Risk Strategy Builder -->
+<div class="glass-card p-4 h-full flex flex-col" data-controller="range-slider">
+  <div class="flex items-center justify-between mb-4">
+    <span class="text-slate-500 uppercase tracking-widest label-xs">Risk Strategy</span>
+    <span class="text-purple-400 font-mono label-xxs px-2 py-0.5 rounded-full bg-dex-purple-10 border border-dex-purple">CUSTOM</span>
+  </div>
+
+  <turbo-frame id="risk_strategy">
+    <div class="space-y-5 flex-1">
+      <!-- Liquidity Penalty -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-xs text-slate-400">Liquidity Penalty</label>
+          <span class="text-xs font-mono tabular-nums text-dex-purple" data-range-slider-target="liquidityValue">50</span>
+        </div>
+        <input type="range" min="0" max="100" value="50"
+               class="w-full h-1 rounded-full appearance-none cursor-pointer"
+               style="accent-color: #8b5cf6; background: rgba(255,255,255,0.1);"
+               data-range-slider-target="liquiditySlider"
+               data-action="input->range-slider#updateLiquidity">
+        <div class="flex justify-between text-slate-600 font-mono label-xxs mt-1">
+          <span>0</span><span>50</span><span>100</span>
+        </div>
+      </div>
+
+      <!-- Volume Penalty -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-xs text-slate-400">Volume Penalty</label>
+          <span class="text-xs font-mono tabular-nums text-dex-pink" data-range-slider-target="volumeValue">30</span>
+        </div>
+        <input type="range" min="0" max="100" value="30"
+               class="w-full h-1 rounded-full appearance-none cursor-pointer"
+               style="accent-color: #ff2a85; background: rgba(255,255,255,0.1);"
+               data-range-slider-target="volumeSlider"
+               data-action="input->range-slider#updateVolume">
+        <div class="flex justify-between text-slate-600 font-mono label-xxs mt-1">
+          <span>0</span><span>50</span><span>100</span>
+        </div>
+      </div>
+
+      <!-- Age Penalty -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-xs text-slate-400">Age Penalty</label>
+          <span class="text-xs font-mono tabular-nums text-amber-400" data-range-slider-target="ageValue">10</span>
+        </div>
+        <input type="range" min="0" max="100" value="10"
+               class="w-full h-1 rounded-full appearance-none cursor-pointer"
+               style="accent-color: #f59e0b; background: rgba(255,255,255,0.1);"
+               data-range-slider-target="ageSlider"
+               data-action="input->range-slider#updateAge">
+        <div class="flex justify-between text-slate-600 font-mono label-xxs mt-1">
+          <span>0</span><span>50</span><span>100</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="mt-4 pt-3 border-t border-glass-light">
+      <div class="flex items-center gap-2">
+        <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></div>
+        <p class="text-slate-500 font-mono label-xs">Strategy active · penalties applied in real-time</p>
+      </div>
+    </div>
+  </turbo-frame>
+</div>
