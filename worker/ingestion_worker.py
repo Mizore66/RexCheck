@@ -30,6 +30,7 @@ from typing import Any
 import aiohttp
 import redis
 from dotenv import load_dotenv
+import hashlib
 from pybloom_live import ScalableBloomFilter
 
 # ---------------------------------------------------------------------------
@@ -271,13 +272,22 @@ async def poll_cycle(
                 if not pool_address:
                     continue
 
-                # Bloom filter deduplication
-                bloom_key = f"{network}:{pool_address}"
-                if bloom_key in bloom:
-                    emit_duplicate_dropped(network=network, pool_address=pool_address)
-                    continue  # Already seen
+                # Redis-cached hash deduplication (allows updates when data changes)
+                attrs = pool_data.get("attributes", {})
+                volume = str(attrs.get("volume_usd", {}).get("h24", "0"))
+                reserve = str(attrs.get("reserve_in_usd", "0"))
+                data_hash = hashlib.md5(f"{volume}:{reserve}".encode()).hexdigest()
 
-                bloom.add(bloom_key)
+                redis_hash_key = f"rexcheck:pool_hash:{network}:{pool_address}"
+                cached_hash = redis_client.get(redis_hash_key)
+
+                if cached_hash == data_hash:
+                    # Data hasn't changed since last ingestion
+                    emit_duplicate_dropped(network=network, pool_address=pool_address)
+                    continue
+
+                # Store hash with 10-minute TTL and push to queue
+                redis_client.setex(redis_hash_key, 600, data_hash)
 
                 # Build payload and push to Redis queue
                 payload = extract_pool_payload(pool_data, network)

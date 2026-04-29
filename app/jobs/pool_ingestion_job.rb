@@ -51,6 +51,18 @@ class PoolIngestionJob < ApplicationJob
     volume_usd = attrs.dig(:volume_usd, :h24).to_f || attrs[:volume_usd].to_f
     reserve_in_usd = attrs[:reserve_in_usd].to_f
 
+    # Throttling and Change Detection
+    last_scan = pool.latest_scan
+    if last_scan.present?
+      # If data is identical and last scan was recent (< 2 mins), skip
+      # We allow small differences to trigger a new scan for accuracy
+      if (last_scan.volume_usd.to_f == volume_usd) &&
+         (last_scan.reserve_in_usd.to_f == reserve_in_usd) &&
+         (last_scan.scanned_at > 2.minutes.ago)
+        return
+      end
+    end
+
     pool_created_at = attrs[:pool_created_at] || attrs[:created_at]
 
     result = RiskCalculator.new({

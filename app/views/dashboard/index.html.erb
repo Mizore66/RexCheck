@@ -73,55 +73,45 @@
     </div>
   </div>
 
-  <!-- Bottom Section: Split Layout -->
-  <div>
     <!-- Left: Live Pool Scanning Table (Full width) -->
-    <div>
-      <div class="glass-card overflow-hidden">
-        <div class="p-4 border-b border-glass-light">
-          <div class="flex items-center justify-between">
-            <span class="text-slate-500 uppercase tracking-widest label-xs">Live Pool Scanning</span>
-            <span class="font-mono text-slate-600 label-xxs"><%= @pools.size %> pools</span>
-          </div>
-        </div>
-
-        <%= turbo_stream_from "pools_grid" %>
-        <div class="overflow-x-auto">
-          <table class="w-full">
-            <thead>
-              <tr class="border-b border-glass-light">
-                <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Pool</th>
-                <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Network</th>
-                <th class="py-2 px-4 text-right text-slate-600 uppercase tracking-widest label-xxs">Volume (24h)</th>
-                <th class="py-2 px-4 text-right text-slate-600 uppercase tracking-widest label-xxs">Liquidity</th>
-                <th class="py-2 px-4 text-center text-slate-600 uppercase tracking-widest label-xxs">Score</th>
-                <th class="py-2 px-4 text-center text-slate-600 uppercase tracking-widest label-xxs">Status</th>
-              </tr>
-            </thead>
-            <tbody id="pools_container">
-              <% if @pools.any? %>
-                <% @pools.each do |pool| %>
-                  <%= render partial: "dashboard/pool_row", locals: { pool: pool, scan: pool.latest_scan } %>
-                <% end %>
-              <% else %>
-                <tr>
-                  <td colspan="6" class="py-12 text-center">
-                    <div class="flex flex-col items-center">
-                      <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse mb-3"></div>
-                      <p class="text-slate-600 font-mono label-xs">Waiting for pool data…</p>
-                    </div>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+    <div class="glass-card overflow-hidden">
+      <div class="p-4 border-b border-glass-light">
+        <div class="flex items-center justify-between">
+          <span class="text-slate-500 uppercase tracking-widest label-xs">Live Pool Scanning</span>
+          <span class="font-mono text-slate-600 label-xxs"><%= @pools.size %> pools</span>
         </div>
       </div>
-    </div>
 
-    <!-- Right: Risk Strategy Builder (1/3 width) -->
-    <div>
-      <%= render partial: "dashboard/strategy" %>
+      <%= turbo_stream_from "pools_grid" %>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-glass-light">
+              <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Pool</th>
+              <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Network</th>
+              <th class="py-2 px-4 text-right text-slate-600 uppercase tracking-widest label-xxs">Volume (24h)</th>
+              <th class="py-2 px-4 text-right text-slate-600 uppercase tracking-widest label-xxs">Liquidity</th>
+              <th class="py-2 px-4 text-center text-slate-600 uppercase tracking-widest label-xxs">Score</th>
+              <th class="py-2 px-4 text-center text-slate-600 uppercase tracking-widest label-xxs">Status</th>
+            </tr>
+          </thead>
+          <tbody id="pools_container">
+            <% if @pools.any? %>
+              <% @pools.each do |pool| %>
+                <%= render partial: "dashboard/pool_row", locals: { pool: pool, scan: pool.latest_scan } %>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="6" class="py-12 text-center">
+                  <div class="flex flex-col items-center">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse mb-3"></div>
+                    <p class="text-slate-600 font-mono label-xs">Waiting for pool data…</p>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
 </div>
