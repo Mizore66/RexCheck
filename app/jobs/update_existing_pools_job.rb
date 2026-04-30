@@ -44,12 +44,7 @@ class UpdateExistingPoolsJob < ApplicationJob
       reserve_in_usd = attrs[:reserve_in_usd]&.to_f || 0.0
       pool_created_at = attrs[:pool_created_at] || pool.created_at
 
-      # Recalculate health score dynamically
-      result = RiskCalculator.new({
-        volume_usd: volume_usd,
-        reserve_in_usd: reserve_in_usd,
-        pool_created_at: pool_created_at
-      }).call
+      result = RiskCalculator.new(attributes: attrs).call
 
       # Create new scan
       pool.pool_scans.create!(

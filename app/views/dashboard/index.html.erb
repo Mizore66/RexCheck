@@ -73,45 +73,78 @@
     </div>
   </div>
 
-    <!-- Left: Live Pool Scanning Table (Full width) -->
-    <div class="glass-card overflow-hidden">
-      <div class="p-4 border-b border-glass-light">
-        <div class="flex items-center justify-between">
-          <span class="text-slate-500 uppercase tracking-widest label-xs">Live Pool Scanning</span>
-          <span class="font-mono text-slate-600 label-xxs"><%= @pools.size %> pools</span>
+  <!-- Pool Explorer Tabs -->
+  <div class="glass-card overflow-hidden">
+    <div class="p-4 border-b border-glass-light">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <span class="text-slate-500 uppercase tracking-widest label-xs">Pool Explorer</span>
+          <p class="text-sm text-slate-500 mt-1">Switch between the live risk feed and the most liquid pools by network.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-2" role="tablist" aria-label="Pool explorer views">
+          <button type="button"
+                  class="px-3 py-1.5 rounded-full border border-emerald-800/60 bg-emerald-900/20 text-emerald-300 font-mono label-xs"
+                  data-dashboard-target="tab"
+                  data-dashboard-tab-param="live"
+                  data-action="dashboard#showTab">
+            Live Pool Data
+          </button>
+          <button type="button"
+                  class="px-3 py-1.5 rounded-full border border-slate-800 bg-slate-900/60 text-slate-400 font-mono label-xs hover:text-slate-200"
+                  data-dashboard-target="tab"
+                  data-dashboard-tab-param="popular"
+                  data-action="dashboard#showTab">
+            Popular Pools
+          </button>
+          <% @network_tabs.each do |network| %>
+            <button type="button"
+                    class="px-3 py-1.5 rounded-full border border-slate-800 bg-slate-900/60 text-slate-400 font-mono label-xs hover:text-slate-200"
+                    data-dashboard-target="tab"
+                    data-dashboard-tab-param="network-<%= network.parameterize %>"
+                    data-action="dashboard#showTab">
+              <%= network.upcase %>
+            </button>
+          <% end %>
         </div>
       </div>
-
-      <%= turbo_stream_from "pools_grid" %>
-      <div class="overflow-x-auto">
-        <table class="w-full">
-          <thead>
-            <tr class="border-b border-glass-light">
-              <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Pool</th>
-              <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Network</th>
-              <th class="py-2 px-4 text-right text-slate-600 uppercase tracking-widest label-xxs">Volume (24h)</th>
-              <th class="py-2 px-4 text-right text-slate-600 uppercase tracking-widest label-xxs">Liquidity</th>
-              <th class="py-2 px-4 text-center text-slate-600 uppercase tracking-widest label-xxs">Score</th>
-              <th class="py-2 px-4 text-center text-slate-600 uppercase tracking-widest label-xxs">Status</th>
-            </tr>
-          </thead>
-          <tbody id="pools_container">
-            <% if @pools.any? %>
-              <% @pools.each do |pool| %>
-                <%= render partial: "dashboard/pool_row", locals: { pool: pool, scan: pool.latest_scan } %>
-              <% end %>
-            <% else %>
-              <tr>
-                <td colspan="6" class="py-12 text-center">
-                  <div class="flex flex-col items-center">
-                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse mb-3"></div>
-                    <p class="text-slate-600 font-mono label-xs">Waiting for pool data…</p>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
     </div>
+
+    <div data-dashboard-target="panel" data-dashboard-panel-id="live">
+      <div class="p-4 border-b border-glass-light flex items-center justify-between">
+        <div>
+          <span class="text-slate-500 uppercase tracking-widest label-xs">Live Pool Data</span>
+          <p class="text-xs text-slate-600 mt-1">Newest scans, including high-risk newly discovered pools.</p>
+        </div>
+        <span class="font-mono text-slate-600 label-xxs"><%= @pools.size %> pools</span>
+      </div>
+      <%= turbo_stream_from "pools_grid" %>
+      <%= render partial: "dashboard/pool_table", locals: { pools: @pools, container_id: "pools_container", empty_message: "Waiting for pool data..." } %>
+    </div>
+
+    <div class="hidden" data-dashboard-target="panel" data-dashboard-panel-id="popular">
+      <div class="p-4 border-b border-glass-light flex items-center justify-between">
+        <div>
+          <span class="text-slate-500 uppercase tracking-widest label-xs">Most Popular Pools</span>
+          <p class="text-xs text-slate-600 mt-1">Ranked by liquidity first, then 24h volume.</p>
+        </div>
+        <span class="font-mono text-slate-600 label-xxs"><%= @popular_pools.size %> pools</span>
+      </div>
+      <%= render partial: "dashboard/pool_table", locals: { pools: @popular_pools, container_id: nil, empty_message: "No popular pools available yet." } %>
+    </div>
+
+    <% @network_tabs.each do |network| %>
+      <% network_pools = @popular_pools_by_network.fetch(network, []) %>
+      <div class="hidden" data-dashboard-target="panel" data-dashboard-panel-id="network-<%= network.parameterize %>">
+        <div class="p-4 border-b border-glass-light flex items-center justify-between">
+          <div>
+            <span class="text-slate-500 uppercase tracking-widest label-xs"><%= network.upcase %> Popular Pools</span>
+            <p class="text-xs text-slate-600 mt-1">Most liquid tracked pools on <%= network.humanize %>.</p>
+          </div>
+          <span class="font-mono text-slate-600 label-xxs"><%= network_pools.size %> pools</span>
+        </div>
+        <%= render partial: "dashboard/pool_table", locals: { pools: network_pools, container_id: nil, empty_message: "No #{network.upcase} pools available yet." } %>
+      </div>
+    <% end %>
+  </div>
 </div>

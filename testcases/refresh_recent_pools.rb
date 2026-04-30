@@ -28,16 +28,12 @@ pools.each do |pool|
 
   data = JSON.parse(res.body)["data"]
   attrs = data["attributes"]
-  
-  volume_usd = attrs.dig("volume_usd", "h24").to_f
-  reserve_in_usd = attrs["reserve_in_usd"].to_f
+  attrs_deep = attrs.deep_symbolize_keys
 
-  # Calculate health score via RiskCalculator
-  result = RiskCalculator.new({
-    volume_usd: volume_usd,
-    reserve_in_usd: reserve_in_usd,
-    pool_created_at: attrs["pool_created_at"]
-  }).call
+  volume_usd = attrs_deep.dig(:volume_usd, :h24).to_f
+  reserve_in_usd = attrs_deep[:reserve_in_usd].to_f
+
+  result = RiskCalculator.new(attributes: attrs_deep).call
 
   # Create a new scan
   pool.pool_scans.create!(

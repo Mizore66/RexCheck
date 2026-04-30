@@ -30,18 +30,18 @@ rexcheck is a **two-part hybrid system**:
                                          └──────────┘          └──────────────┘
 ```
 
-## Quick Start (Docker)
+## Quick start
+
+See **[RUNNING.md](RUNNING.md)** for prerequisites, Docker and native setups, database preparation, troubleshooting, and optional ML training steps.
+
+Minimal Docker flow:
 
 ```bash
-# Clone and start everything
 cd rexcheck
-docker-compose up --build
-
-# In another terminal, setup the database
-docker-compose run web bundle exec rails db:create db:migrate db:seed
-
-# Visit the dashboard
-open http://localhost:3000
+docker compose up -d
+docker compose run --rm web bundle exec rails db:prepare   # retry once if Postgres is slow to accept connections
+# optional: docker compose run --rm web bundle exec rails db:seed
+# open http://localhost:3000
 ```
 
 ## API Endpoint

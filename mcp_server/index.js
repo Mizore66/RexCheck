@@ -431,9 +431,6 @@ server.tool(
   "List all cryptocurrency tokens currently tracked by RexCheck with their monitoring status.",
   {},
   async () => {
-    const result = await fetchRails("/api/v1/mcp/token_analysis?symbol=_list_");
-
-    // Always use static list — the Rails endpoint returns 404 for _list_, we catch below
     const staticList = [
       { symbol: "WETH", networks: ["base", "optimism"], note: "Wrapped Ether" },
       { symbol: "ETH",  networks: ["eth"],              note: "Ethereum (as USDC/WETH pair)" },
@@ -448,9 +445,29 @@ server.tool(
       { symbol: "BUSD", networks: ["bsc"],               note: "Binance USD" },
     ];
 
-    // Try to get live list from Rails
-    const liveResult = await fetchRails("/api/v1/mcp/token_analysis?symbol=ETH");
-    const isLive = liveResult.ok;
+    // Prefer live list from Rails.
+    const liveResult = await fetchRails("/api/v1/mcp/list_tokens");
+    if (liveResult.ok && Array.isArray(liveResult.data?.tokens)) {
+      const lines = liveResult.data.tokens
+        .map((t) => `  • ${String(t.symbol).padEnd(6)} — Pools: ${t.pool_count} [${(t.networks ?? []).join(", ")}]`)
+        .join("\n");
+
+      return {
+        content: [
+          {
+            type: "text",
+            text:
+              `Tracked tokens (${liveResult.data.token_count}) — Rails connected:\n` +
+              lines +
+              `\n\nTo analyze any token, use the analyze_token tool with its symbol.`,
+          },
+          {
+            type: "text",
+            text: JSON.stringify(liveResult.data, null, 2),
+          },
+        ],
+      };
+    }
 
     const lines = staticList
       .map((t) => `  • ${t.symbol.padEnd(6)} — ${t.note} [${t.networks.join(", ")}]`)
@@ -461,9 +478,33 @@ server.tool(
         {
           type: "text",
           text:
-            `Tracked tokens (${staticList.length}) — ${isLive ? "Rails connected" : "cached list"}:\n` +
+            `Tracked tokens (${staticList.length}) — cached list:\n` +
             lines +
             `\n\nTo analyze any token, use the analyze_token tool with its symbol.`,
+        },
+        {
+          type: "text",
+          text: JSON.stringify({ token_count: staticList.length, tokens: staticList }, null, 2),
+        },
+      ],
+    };
+  }
+);
+
+// Tool 4: ping
+server.tool(
+  "ping",
+  "Quick health check for MCP connectivity and Rails backend reachability.",
+  {},
+  async () => {
+    const check = await fetchRails("/up");
+    return {
+      content: [
+        {
+          type: "text",
+          text: check.ok
+            ? "rexcheck MCP is running. Rails backend is reachable."
+            : "rexcheck MCP is running. Rails backend is currently unreachable (fallback data may be used).",
         },
       ],
     };

@@ -1,0 +1,66 @@
+{
+  "model_artifact": "xgboost_model.json",
+  "model_version": "1.0.0",
+  "trained_at": "2026-04-29T08:14:12.215346+00:00",
+  "objective": "binary:logistic",
+  "decision_threshold": 0.39999999999999997,
+  "feature_names": [
+    "liquidity_depth_usd",
+    "volume_to_liquidity_ratio",
+    "pooled_token_ratio",
+    "contract_age_minutes",
+    "price_volatility_1hr"
+  ],
+  "label_encoding": {
+    "0": "DANGER",
+    "1": "SAFE"
+  },
+  "training_window_utc": {
+    "train": [
+      "2025-10-31T08:16:04.248000+00:00",
+      "2026-02-07T10:31:42.367463+00:00"
+    ],
+    "val": [
+      "2026-02-07T10:48:05.932763+00:00",
+      "2026-03-04T10:18:17.483899+00:00"
+    ],
+    "test": [
+      "2026-03-04T10:30:06.120137+00:00",
+      "2026-03-30T07:59:54.261663+00:00"
+    ]
+  },
+  "hyperparameters": {
+    "max_depth": 4,
+    "learning_rate": 0.08927180304353628,
+    "n_estimators": 393,
+    "min_child_weight": 6.387926357773329,
+    "gamma": 0.7800932022121826,
+    "subsample": 0.7467983561008608,
+    "colsample_bytree": 0.7174250836504598,
+    "scale_pos_weight": 0.7379833032307288,
+    "objective": "binary:logistic",
+    "eval_metric": "aucpr",
+    "tree_method": "hist",
+    "verbosity": 0
+  },
+  "evaluation": {
+    "pr_auc": 0.9999946261384645,
+    "precision_top_5pct": 1.0,
+    "threshold": 0.39999999999999997,
+    "precision_at_threshold": 0.998661311914324,
+    "fbeta_05": 0.998661311914324,
+    "confusion_matrix": [
+      [
+        919,
+        1
+      ],
+      [
+        1,
+        746
+      ]
+    ],
+    "avg_inference_ms": 2.8038331733802853,
+    "p99_inference_ms": 3.310949999886361,
+    "n_test": 1667
+  }
+}

@@ -168,11 +168,19 @@ demo_pools.each do |data|
 
   pool_created_at = data[:age_hours].hours.ago
 
-  result = RiskCalculator.new(
-    volume_usd: data[:volume],
+  gecko_attrs = {
     reserve_in_usd: data[:reserve],
-    pool_created_at: pool_created_at
-  ).call
+    pool_created_at: pool_created_at,
+    volume_usd: {
+      h24: data[:volume].to_f,
+      h1: (data[:volume].to_f / 24.0)
+    },
+    # Neutral ratio when real token prices are unavailable (demo seed data)
+    base_token_price_usd: 1.0,
+    quote_token_price_usd: 1.0
+  }
+
+  result = RiskCalculator.new(attributes: gecko_attrs).call
 
   pool.pool_scans.create!(
     volume_usd: data[:volume],

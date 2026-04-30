@@ -16,16 +16,11 @@ pools.each do |pool|
   
   if res.code == "200"
     data = JSON.parse(res.body)["data"]
-    attrs = data["attributes"]
-    
-    volume_usd = attrs.dig("volume_usd", "h24").to_f
-    reserve_in_usd = attrs["reserve_in_usd"].to_f
-    
-    result = RiskCalculator.new({
-      volume_usd: volume_usd,
-      reserve_in_usd: reserve_in_usd,
-      pool_created_at: attrs["pool_created_at"]
-    }).call
+    attrs = data["attributes"].deep_symbolize_keys
+    volume_usd = attrs.dig(:volume_usd, :h24).to_f
+    reserve_in_usd = attrs[:reserve_in_usd].to_f
+
+    result = RiskCalculator.new(attributes: attrs).call
     
     pool.pool_scans.create!(
       volume_usd: volume_usd,

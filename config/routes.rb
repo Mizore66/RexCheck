@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       namespace :mcp do
         get "pool_status",     to: "pool_status#show"
         get "token_analysis",  to: "token_analysis#show"
+        get "list_tokens",     to: "token_analysis#list_tokens"
       end
     end
   end

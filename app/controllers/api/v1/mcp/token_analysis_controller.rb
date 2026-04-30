@@ -81,6 +81,24 @@ module Api
           }
         end
 
+        # GET /api/v1/mcp/list_tokens
+        def list_tokens
+          symbols = available_token_symbols
+          token_rows = symbols.map do |sym|
+            pools = Pool.by_token_symbol(sym)
+            {
+              symbol: sym,
+              networks: pools.distinct.pluck(:network_id).compact.sort,
+              pool_count: pools.count
+            }
+          end
+
+          render json: {
+            token_count: token_rows.size,
+            tokens: token_rows.sort_by { |row| row[:symbol] }
+          }
+        end
+
         private
 
         def available_token_symbols

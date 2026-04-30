@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "rexcheck": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "mcp_server/index.js"
+      ],
+      "cwd": "C:\\Users\\User\\CoinGecko\\rexcheck",
+      "env": {
+        "RAILS_API_URL": "http://localhost:3000"
+      }
+    }
+  }
+}

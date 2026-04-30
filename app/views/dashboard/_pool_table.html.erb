@@ -1,0 +1,34 @@
+<% pools = local_assigns.fetch(:pools) %>
+<% container_id = local_assigns[:container_id] %>
+<% empty_message = local_assigns.fetch(:empty_message, "No pool data available yet.") %>
+
+<div class="overflow-x-auto">
+  <table class="w-full">
+    <thead>
+      <tr class="border-b border-glass-light">
+        <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Pool</th>
+        <th class="py-2 px-4 text-left text-slate-600 uppercase tracking-widest label-xxs">Network</th>
+        <th class="py-2 px-4 text-right text-slate-600 uppercase tracking-widest label-xxs">Volume (24h)</th>
+        <th class="py-2 px-4 text-right text-slate-600 uppercase tracking-widest label-xxs">Liquidity</th>
+        <th class="py-2 px-4 text-center text-slate-600 uppercase tracking-widest label-xxs">Score</th>
+        <th class="py-2 px-4 text-center text-slate-600 uppercase tracking-widest label-xxs">Status</th>
+      </tr>
+    </thead>
+    <tbody id="<%= container_id if container_id.present? %>">
+      <% if pools.any? %>
+        <% pools.each do |pool| %>
+          <%= render partial: "dashboard/pool_row", locals: { pool: pool, scan: pool.latest_scan } %>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="6" class="py-12 text-center">
+            <div class="flex flex-col items-center">
+              <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse mb-3"></div>
+              <p class="text-slate-600 font-mono label-xs"><%= empty_message %></p>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

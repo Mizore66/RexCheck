@@ -1,5 +1,7 @@
-# Test 5: Heuristic Accuracy (spec/services/risk_calculator_spec.rb equivalent)
+# Test 5: Heuristic Accuracy (deterministic regression — forces legacy rules)
 # Run with: docker-compose run web bundle exec rails runner testcases/test_risk_calculator.rb
+
+ENV["DEXGUARD_USE_HEURISTIC_SCORE"] = "true"
 
 puts "=== Test 5: RiskCalculator Heuristic Accuracy ==="
 puts ""

@@ -65,11 +65,14 @@ class PoolIngestionJob < ApplicationJob
 
     pool_created_at = attrs[:pool_created_at] || attrs[:created_at]
 
-    result = RiskCalculator.new({
-      volume_usd: volume_usd,
+    # Pass full GeckoTerminal attributes so DexGuardFeatureBuilder can align
+    # with the ML training schema (h1 volume, token prices, mint time, etc.).
+    result = RiskCalculator.new(
+      attributes: attrs,
       reserve_in_usd: reserve_in_usd,
+      volume_usd: volume_usd,
       pool_created_at: pool_created_at
-    }).call
+    ).call
 
     pool.pool_scans.create!(
       volume_usd: volume_usd,

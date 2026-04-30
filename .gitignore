@@ -48,7 +48,12 @@ __pycache__/
 *.pyc
 *.pyo
 .venv/
+.venv-ml/
 worker/.env
+
+# ML training artifacts (regeneratable)
+/scripts/data/*.csv
+/scripts/data/*.parquet
 
 # Ignore temp files
 tmp/pids/*

@@ -16,6 +16,7 @@ gem "sprockets-rails", "~> 3.5"
 gem "bootsnap", require: false
 gem "connection_pool", "~> 2.4"
 gem "hiredis-client", "~> 0.22"
+gem "xgb", "~> 0.11", require: false
 
 group :development, :test do
   gem "debug", platforms: %i[mri windows]
